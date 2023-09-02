@@ -1,0 +1,90 @@
+Autor: Diego Nova Olguin
+Fecha: 3-Mayo-2023 15:09
+# | Caracter
+include | Identificador
+< | OperadorRelacional
+stdio | Identificador
+. | Caracter
+h | Identificador
+> | OperadorRelacional
+# | Caracter
+include | Identificador
+< | OperadorRelacional
+math | Identificador
+. | Caracter
+h | Identificador
+> | OperadorRelacional
+# | Caracter
+include | Identificador
+< | OperadorRelacional
+iostream | Identificador
+> | OperadorRelacional
+# | Caracter
+include | Identificador
+< | OperadorRelacional
+conio | Identificador
+. | Caracter
+h | Identificador
+> | OperadorRelacional
+float | TipoDato
+x25 | Identificador
+, | Caracter
+x26 | Identificador
+, | Caracter
+x27 | Identificador
+, | Caracter
+x28 | Identificador
+; | FinSentencia
+void | Identificador
+main | Identificador
+( | Caracter
+) | Caracter
+{ | Inicio
+x25 | Identificador
+x25 = = | Asignacion
+( | Caracter
+3 | Numero
+ 3+ | OperadorTermino
+5 | Numero
+ 5) | Caracter
+ +* | OperadorFactor
+8 | Numero
+ 8- | OperadorTermino
+ *( | Caracter
+10 | Numero
+ 10- | OperadorTermino
+4 | Numero
+ 4) | Caracter
+ -/ | OperadorFactor
+2 | Numero
+ 2; | FinSentencia
+ / - = 61
+x26 | Identificador
+x26 = = | Asignacion
+3 | Numero
+ 3+ | OperadorTermino
+5 | Numero
+ 5; | FinSentencia
+ + = 8
+printf | Identificador
+( | Caracter
+"Valor de x27 = " | Cadena
+) | Caracter
+; | FinSentencia
+scanf | Identificador
+( | Caracter
+"%f" | Cadena
+, | Caracter
+& | Caracter
+x27 | Identificador
+) | Caracter
+; | FinSentencia
+} | Fin
+-----------------
+V a r i a b l e s
+-----------------
+x25 Float = 61
+x26 Float = 8
+x27 Float = 23
+x28 Float = 0
+-----------------

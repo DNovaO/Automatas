@@ -1,0 +1,14 @@
+C:\Users\d_nov\OneDrive\Desktop\Dekstop\UNIVERSIDAD\Sexto Semestre\Lenguajes y Automatas II\Sintaxis II\bin\Debug\net7.0\Sintaxis II.exe
+C:\Users\d_nov\OneDrive\Desktop\Dekstop\UNIVERSIDAD\Sexto Semestre\Lenguajes y Automatas II\Sintaxis II\bin\Debug\net7.0\Sintaxis II.deps.json
+C:\Users\d_nov\OneDrive\Desktop\Dekstop\UNIVERSIDAD\Sexto Semestre\Lenguajes y Automatas II\Sintaxis II\bin\Debug\net7.0\Sintaxis II.runtimeconfig.json
+C:\Users\d_nov\OneDrive\Desktop\Dekstop\UNIVERSIDAD\Sexto Semestre\Lenguajes y Automatas II\Sintaxis II\bin\Debug\net7.0\Sintaxis II.dll
+C:\Users\d_nov\OneDrive\Desktop\Dekstop\UNIVERSIDAD\Sexto Semestre\Lenguajes y Automatas II\Sintaxis II\bin\Debug\net7.0\Sintaxis II.pdb
+C:\Users\d_nov\OneDrive\Desktop\Dekstop\UNIVERSIDAD\Sexto Semestre\Lenguajes y Automatas II\Sintaxis II\obj\Debug\net7.0\Sintaxis II.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\d_nov\OneDrive\Desktop\Dekstop\UNIVERSIDAD\Sexto Semestre\Lenguajes y Automatas II\Sintaxis II\obj\Debug\net7.0\Sintaxis II.AssemblyInfoInputs.cache
+C:\Users\d_nov\OneDrive\Desktop\Dekstop\UNIVERSIDAD\Sexto Semestre\Lenguajes y Automatas II\Sintaxis II\obj\Debug\net7.0\Sintaxis II.AssemblyInfo.cs
+C:\Users\d_nov\OneDrive\Desktop\Dekstop\UNIVERSIDAD\Sexto Semestre\Lenguajes y Automatas II\Sintaxis II\obj\Debug\net7.0\Sintaxis II.csproj.CoreCompileInputs.cache
+C:\Users\d_nov\OneDrive\Desktop\Dekstop\UNIVERSIDAD\Sexto Semestre\Lenguajes y Automatas II\Sintaxis II\obj\Debug\net7.0\Sintaxis II.dll
+C:\Users\d_nov\OneDrive\Desktop\Dekstop\UNIVERSIDAD\Sexto Semestre\Lenguajes y Automatas II\Sintaxis II\obj\Debug\net7.0\refint\Sintaxis II.dll
+C:\Users\d_nov\OneDrive\Desktop\Dekstop\UNIVERSIDAD\Sexto Semestre\Lenguajes y Automatas II\Sintaxis II\obj\Debug\net7.0\Sintaxis II.pdb
+C:\Users\d_nov\OneDrive\Desktop\Dekstop\UNIVERSIDAD\Sexto Semestre\Lenguajes y Automatas II\Sintaxis II\obj\Debug\net7.0\Sintaxis II.genruntimeconfig.cache
+C:\Users\d_nov\OneDrive\Desktop\Dekstop\UNIVERSIDAD\Sexto Semestre\Lenguajes y Automatas II\Sintaxis II\obj\Debug\net7.0\ref\Sintaxis II.dll

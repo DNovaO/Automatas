@@ -39,5 +39,9 @@ namespace Sintaxis_II {
         public Tipos getClasificacion() {
             return this.Clasificacion;
         }
+        //Esta funcion nos ayudara a eliminar los caracteres que no necesitamos. en este caso las "".
+        // public void eliminarCaracter(char caracter) {
+        //     Contenido = Contenido.Replace(caracter.ToString(), string.Empty);
+        // }
     }
 }

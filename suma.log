@@ -40,6 +40,11 @@ main | Identificador
 ( | Caracter
 ) | Caracter
 { | Inicio
+printf | Identificador
+( | Caracter
+"Holaaaa" | Cadena
+) | Caracter
+; | FinSentencia
 x25 | Identificador
 x25 = = | Asignacion
 ( | Caracter
@@ -79,12 +84,17 @@ scanf | Identificador
 x27 | Identificador
 ) | Caracter
 ; | FinSentencia
+printf | Identificador
+( | Caracter
+"Hola mundo como estan" | Cadena
+) | Caracter
+; | FinSentencia
 } | Fin
 -----------------
 V a r i a b l e s
 -----------------
 x25 Float = 61
 x26 Float = 8
-x27 Float = 23
+x27 Float = 25
 x28 Float = 0
 -----------------

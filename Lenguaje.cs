@@ -257,7 +257,7 @@ namespace Sintaxis_II
             }
             float resultado = stack.Pop();
             log.WriteLine(" = " + resultado);
-            Modifica(variable,resultado);
+            Modifica(variable, resultado);
             match(";");
         }
         //While -> while(Condicion) BloqueInstrucciones | Instruccion
@@ -371,10 +371,23 @@ namespace Sintaxis_II
         //Printf -> printf(cadena(,Identificador)?);
         private void Printf()
         {
-            match("printf");
-            match("(");
-            Console.Write(getContenido());
-            match(Tipos.Cadena);
+            match("printf"); // Comprueba si la siguiente palabra es "printf"
+            match("("); // Comprueba si hay un paréntesis de apertura "("
+
+            // Obtiene el contenido entre paréntesis
+            string contenido = getContenido();
+
+            // Verifica si el contenido comienza y termina con comillas dobles
+            if (contenido.Length >= 2 && contenido[0] == '"' && contenido[contenido.Length - 1] == '"')
+            {
+                // Si las comillas están al principio y al final, elimínalas
+                contenido = contenido.Substring(1, contenido.Length - 2);
+            }
+
+            // En este punto, "contenido" contiene la cadena de formato sin comillas
+            Console.Write(contenido); // Imprime la cadena de formato sin comillas
+
+            match(Tipos.Cadena); // Realiza una coincidencia con un tipo de cadena
             if (getContenido() == ",")
             {
                 match(",");
@@ -384,9 +397,11 @@ namespace Sintaxis_II
                 }
                 match(Tipos.Identificador);
             }
-            match(")");
-            match(";");
+
+            match(")"); // Comprueba si hay un paréntesis de cierre ")"
+            match(";"); // Comprueba si hay un punto y coma ";"
         }
+
         //Scanf -> scanf(cadena,&Identificador);
         private void Scanf()
         {
@@ -402,7 +417,7 @@ namespace Sintaxis_II
             string variable = getContenido();
             match(Tipos.Identificador);
             float captura = float.Parse(Console.ReadLine());
-            Modifica(variable,captura);
+            Modifica(variable, captura);
             match(")");
             match(";");
         }
@@ -433,9 +448,9 @@ namespace Sintaxis_II
                 float R2 = stack.Pop();
                 float R1 = stack.Pop();
                 if (operador == "+")
-                    stack.Push(R1+R2);
+                    stack.Push(R1 + R2);
                 else
-                    stack.Push(R1-R2);
+                    stack.Push(R1 - R2);
             }
         }
         //Termino -> Factor PorFactor
@@ -456,9 +471,9 @@ namespace Sintaxis_II
                 float R2 = stack.Pop();
                 float R1 = stack.Pop();
                 if (operador == "*")
-                    stack.Push(R1*R2);
+                    stack.Push(R1 * R2);
                 else
-                    stack.Push(R1/R2);
+                    stack.Push(R1 / R2);
             }
         }
         //Factor -> numero | identificador | (Expresion)

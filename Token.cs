@@ -43,6 +43,5 @@ namespace Sintaxis_II {
             NOTA: Ya no fue necesaria la funcion.
             public void eliminarCaracter(char caracter) {
             Contenido = Contenido.Replace(caracter.ToString(), string.Empty);
-        */ }
-    }
+   */ }
 }

@@ -42,7 +42,7 @@ main | Identificador
 { | Inicio
 printf | Identificador
 ( | Caracter
-"Holaaaa" | Cadena
+"\t\t\t\tHolaaaa \n" | Cadena
 ) | Caracter
 ; | FinSentencia
 x25 | Identificador
@@ -73,7 +73,7 @@ x26 = = | Asignacion
  + = 8
 printf | Identificador
 ( | Caracter
-"Valor de x27 = " | Cadena
+"\t---- Valor de x27 = \n" | Cadena
 ) | Caracter
 ; | FinSentencia
 scanf | Identificador
@@ -83,18 +83,3 @@ scanf | Identificador
 & | Caracter
 x27 | Identificador
 ) | Caracter
-; | FinSentencia
-printf | Identificador
-( | Caracter
-"Hola mundo como estan" | Cadena
-) | Caracter
-; | FinSentencia
-} | Fin
------------------
-V a r i a b l e s
------------------
-x25 Float = 61
-x26 Float = 8
-x27 Float = 25
-x28 Float = 0
------------------

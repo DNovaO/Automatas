@@ -384,6 +384,18 @@ namespace Sintaxis_II
                 contenido = contenido.Substring(1, contenido.Length - 2);
             }
 
+            //Detectar los \n y hacer que sean funcionales.
+            if (contenido.Length >= 2 && contenido.Contains("\\n"))
+            {
+                contenido = contenido.Replace("\\n", "\n");
+            }
+
+            //Detectar los \t y hacer que sean funcionales.
+            if (contenido.Length >= 2 && contenido.Contains("\\t"))
+            {
+                contenido = contenido.Replace("\\t", "\t");
+            }
+
             //Contiene la cadena de formato sin comillas
             Console.Write(contenido); // Imprime la cadena de formato sin comillas
 
@@ -501,5 +513,10 @@ namespace Sintaxis_II
                 match(")");
             }
         }
+
+        // public char convertidorAscci(string caracteres)
+        // {
+        //     char ascci = caracteres.ToChar(13);
+        // }
     }
 }

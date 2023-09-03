@@ -7,13 +7,13 @@ float x25, x26, x27, x28;
 
 void main() // Funcion principal
 {
-    printf("Holaaaa");
+    printf("Holaaaa\n");
     x25=(3+5)*8-(10-4)/2;
     x26=3+5;
-    printf("Valor de x27 = ");
+    printf("Valor de x27 = \n");
     scanf("%f",&x27);
     // x28=x27++;
-    printf("Hola mundo como estan"); 
+    printf("Hola mundo como estan\n"); 
 }
 
 

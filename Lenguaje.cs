@@ -380,11 +380,11 @@ namespace Sintaxis_II
             // Verifica si el contenido comienza y termina con comillas dobles
             if (contenido.Length >= 2 && contenido[0] == '"' && contenido[contenido.Length - 1] == '"')
             {
-                // Si las comillas están al principio y al final, elimínalas
+                // Si las comillas están al principio y al final las elimina
                 contenido = contenido.Substring(1, contenido.Length - 2);
             }
 
-            // En este punto, "contenido" contiene la cadena de formato sin comillas
+            //Contiene la cadena de formato sin comillas
             Console.Write(contenido); // Imprime la cadena de formato sin comillas
 
             match(Tipos.Cadena); // Realiza una coincidencia con un tipo de cadena

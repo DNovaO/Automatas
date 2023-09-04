@@ -27,13 +27,13 @@ conio | Identificador
 h | Identificador
 > | OperadorRelacional
 float | TipoDato
-x25 | Identificador
+a | Identificador
 , | Caracter
-x26 | Identificador
+b | Identificador
 , | Caracter
-x27 | Identificador
+c | Identificador
 , | Caracter
-x28 | Identificador
+d | Identificador
 ; | FinSentencia
 void | Identificador
 main | Identificador
@@ -42,11 +42,11 @@ main | Identificador
 { | Inicio
 printf | Identificador
 ( | Caracter
-"\t\t\t\tHolaaaa \n" | Cadena
+"\tHolaaaa \n" | Cadena
 ) | Caracter
 ; | FinSentencia
-x25 | Identificador
-x25 = = | Asignacion
+a | Identificador
+a = = | Asignacion
 ( | Caracter
 3 | Numero
  3+ | OperadorTermino
@@ -64,13 +64,13 @@ x25 = = | Asignacion
 2 | Numero
  2; | FinSentencia
  / - = 61
-x26 | Identificador
-x26 = = | Asignacion
-3 | Numero
- 3+ | OperadorTermino
-5 | Numero
- 5; | FinSentencia
- + = 8
+b | Identificador
+b = = | Asignacion
+10 | Numero
+ 10% | OperadorFactor
+100 | Numero
+ 100; | FinSentencia
+ % = 10
 printf | Identificador
 ( | Caracter
 "\t---- Valor de x27 = \n" | Cadena
@@ -81,5 +81,23 @@ scanf | Identificador
 "%f" | Cadena
 , | Caracter
 & | Caracter
-x27 | Identificador
+c | Identificador
 ) | Caracter
+; | FinSentencia
+if | Condicion
+( | Caracter
+a | Identificador
+>= | OperadorRelacional
+c | Identificador
+) | Caracter
+{ | Inicio
+} | Fin
+} | Fin
+-----------------
+V a r i a b l e s
+-----------------
+a Float = 61
+b Float = 10
+c Float = 21
+d Float = 0
+-----------------

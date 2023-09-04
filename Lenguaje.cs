@@ -80,6 +80,7 @@ namespace Sintaxis_II
                 }
             }
         }
+        
         //get valor del scanf
         private float GetValor(string nombre)
         {
@@ -90,7 +91,7 @@ namespace Sintaxis_II
                     return v.getValor();
                 }
             }
-            throw new Error("La variable <" + nombre + "> no está declarada", log, linea, columna);
+            return 0;
         }
 
         // Libreria -> #include<Identificador(.h)?>
@@ -332,18 +333,31 @@ namespace Sintaxis_II
             }
         }
         //Condicion -> Expresion OperadorRelacional Expresion
-        private void Condicion()
+        private bool Condicion()
         {
             Expresion();
+            string operador = getContenido();
             match(Tipos.OperadorRelacional);
             Expresion();
+            float R1 = stack.Pop();
+            float R2 = stack.Pop();
+
+            switch (operador){
+                case "==": return R2 == R1;
+                case ">": return R2 > R1;
+                case ">=": return R2 >= R1;
+                case "<": return R2 < R1;
+                case "<=": return R2 <= R1;
+                default: return R2 != R1;
+            }
         }
         //If -> if (Condicion) BloqueInstrucciones | Instruccion (else BloqueInstrucciones | Instruccion)?
         private void If()
         {
             match("if");
             match("(");
-            Condicion();
+            bool evaluacion = Condicion();
+            Console.WriteLine(evaluacion);
             match(")");
             if (getContenido() == "{")
             {
@@ -484,8 +498,10 @@ namespace Sintaxis_II
                 float R1 = stack.Pop();
                 if (operador == "*")
                     stack.Push(R1 * R2);
-                else
+                else if (operador == "/")
                     stack.Push(R1 / R2);
+                else if (operador == "%")
+                    stack.Push(R1 % R2);
             }
         }
         //Factor -> numero | identificador | (Expresion)
@@ -503,7 +519,7 @@ namespace Sintaxis_II
                 {
                     throw new Error("de sintaxis, la variable <" + getContenido() + "> no está declarada", log, linea, columna);
                 }
-
+                stack.Push(GetValor(getContenido()));
                 match(Tipos.Identificador);
             }
             else

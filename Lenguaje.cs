@@ -4,7 +4,6 @@ using System.Linq;
 using System.Threading.Tasks;
 
 /* 
-
     Requerimiento 1: Mensajes del printf deben salir sin comillas
                      Incluir \n y \t como secuencias de escape
     Requerimiento 2: Agregar el % al PorFactor
@@ -13,6 +12,7 @@ using System.Threading.Tasks;
                      uso de la variable
                      Icremento(), Printf(), Factor()
                      Levantar una excepcion en scanf() cuando se capture un string
+    Requerimiento 4: Implementar la ejecucion del ELSE.
 */
 
 namespace Sintaxis_II
@@ -43,7 +43,7 @@ namespace Sintaxis_II
             {
                 Variables();
             }
-            Main();
+            Main(true);
             Imprime();
         }
 
@@ -153,60 +153,60 @@ namespace Sintaxis_II
             }
         }
         //BloqueInstrucciones -> { ListaInstrucciones ? }
-        private void BloqueInstrucciones()
+        private void BloqueInstrucciones(bool ejecuta)
         {
             match("{");
             if (getContenido() != "}")
             {
-                ListaInstrucciones();
+                ListaInstrucciones(ejecuta);
             }
             match("}");
         }
 
         //ListaInstrucciones -> Instruccion ListaInstrucciones?
-        private void ListaInstrucciones()
+        private void ListaInstrucciones(bool ejecuta)
         {
-            Instruccion();
+            Instruccion(ejecuta);
             if (getContenido() != "}")
             {
-                ListaInstrucciones();
+                ListaInstrucciones(ejecuta);
             }
         }
         //Instruccion -> Printf | Scanf | If | While | Do | For | Asignacion
-        private void Instruccion()
+        private void Instruccion(bool ejecuta)
         {
             if (getContenido() == "printf")
             {
-                Printf();
+                Printf(ejecuta);
             }
             else if (getContenido() == "scanf")
             {
-                Scanf();
+                Scanf(ejecuta);
             }
             else if (getContenido() == "while")
             {
-                While();
+                While(ejecuta);
             }
             else if (getContenido() == "if")
             {
-                If();
+                If(ejecuta);
             }
             else if (getContenido() == "do")
             {
-                Do();
+                Do(ejecuta);
             }
             else if (getContenido() == "for")
             {
-                For();
+                For(ejecuta);
             }
             // ...
             else
             {
-                Asignacion();
+                Asignacion(ejecuta);
             }
         }
         //Asignacion -> identificador = Expresion;
-        private void Asignacion()
+        private void Asignacion(bool ejecuta)
         {
             if (!Existe(getContenido()))
             {
@@ -258,11 +258,13 @@ namespace Sintaxis_II
             }
             float resultado = stack.Pop();
             log.WriteLine(" = " + resultado);
-            Modifica(variable, resultado);
+            if(ejecuta){
+                Modifica(variable, resultado);
+            }
             match(";");
         }
         //While -> while(Condicion) BloqueInstrucciones | Instruccion
-        private void While()
+        private void While(bool ejecuta)
         {
             match("while");
             match("(");
@@ -270,25 +272,25 @@ namespace Sintaxis_II
             match(")");
             if (getContenido() == "{")
             {
-                BloqueInstrucciones();
+                BloqueInstrucciones(ejecuta);
             }
             else
             {
-                Instruccion();
+                Instruccion(ejecuta);
             }
 
         }
         //Do -> do BloqueInstrucciones | Instruccion while(Condicion)
-        private void Do()
+        private void Do(bool ejecuta)
         {
             match("do");
             if (getContenido() == "{")
             {
-                BloqueInstrucciones();
+                BloqueInstrucciones(ejecuta);
             }
             else
             {
-                Instruccion();
+                Instruccion(ejecuta);
             }
             match("while");
             match("(");
@@ -297,26 +299,26 @@ namespace Sintaxis_II
             match(";");
         }
         //For -> for(Asignacion Condicion; Incremento) BloqueInstrucciones | Instruccion
-        private void For()
+        private void For(bool ejecuta)
         {
             match("for");
             match("(");
-            Asignacion();
+            Asignacion(ejecuta);
             Condicion();
             match(";");
-            Incremento();
+            Incremento(ejecuta);
             match(")");
             if (getContenido() == "{")
             {
-                BloqueInstrucciones();
+                BloqueInstrucciones(ejecuta);
             }
             else
             {
-                Instruccion();
+                Instruccion(ejecuta);
             }
         }
         //Incremento -> Identificador ++ | --
-        private void Incremento()
+        private void Incremento(bool ejecuta)
         {
             if (!Existe(getContenido()))
             {
@@ -352,20 +354,20 @@ namespace Sintaxis_II
             }
         }
         //If -> if (Condicion) BloqueInstrucciones | Instruccion (else BloqueInstrucciones | Instruccion)?
-        private void If()
+        private void If(bool ejecuta)
         {
             match("if");
             match("(");
-            bool evaluacion = Condicion();
+            bool evaluacion = Condicion() && ejecuta;
             Console.WriteLine(evaluacion);
             match(")");
             if (getContenido() == "{")
             {
-                BloqueInstrucciones();
+                BloqueInstrucciones(evaluacion);
             }
             else
             {
-                Instruccion();
+                Instruccion(evaluacion);
             }
             if (getContenido() == "else")
             {
@@ -373,17 +375,17 @@ namespace Sintaxis_II
 
                 if (getContenido() == "{")
                 {
-                    BloqueInstrucciones();
+                    BloqueInstrucciones(ejecuta);
                 }
                 else
                 {
-                    Instruccion();
+                    Instruccion(ejecuta);
                 }
             }
 
         }
         //Printf -> printf(cadena(,Identificador)?);
-        private void Printf()
+        private void Printf(bool ejecuta)
         {
             match("printf"); // Comprueba si la siguiente palabra es "printf"
             match("("); // Comprueba si hay un paréntesis de apertura "("
@@ -411,8 +413,11 @@ namespace Sintaxis_II
             }
 
             //Contiene la cadena de formato sin comillas
-            Console.Write(contenido); // Imprime la cadena de formato sin comillas
-
+            if (ejecuta)
+            {
+                Console.Write(contenido); // Imprime la cadena de formato sin comillas    
+            }
+            
             match(Tipos.Cadena); // Realiza una coincidencia con un tipo de cadena
             if (getContenido() == ",")
             {
@@ -429,7 +434,7 @@ namespace Sintaxis_II
         }
 
         //Scanf -> scanf(cadena,&Identificador);
-        private void Scanf()
+        private void Scanf(bool ejecuta)
         {
             match("scanf");
             match("(");
@@ -442,19 +447,21 @@ namespace Sintaxis_II
             }
             string variable = getContenido();
             match(Tipos.Identificador);
-            float captura = float.Parse(Console.ReadLine());
-            Modifica(variable, captura);
+            if (ejecuta) {
+                float captura = float.Parse(Console.ReadLine());
+                Modifica(variable, captura);
+            }
             match(")");
             match(";");
         }
         //Main -> void main() BloqueInstrucciones
-        private void Main()
+        private void Main(bool ejecuta)
         {
             match("void");
             match("main");
             match("(");
             match(")");
-            BloqueInstrucciones();
+            BloqueInstrucciones(ejecuta);
         }
         //Expresion -> Termino MasTermino
         private void Expresion()

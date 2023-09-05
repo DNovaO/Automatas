@@ -86,11 +86,24 @@ c | Identificador
 ; | FinSentencia
 if | Condicion
 ( | Caracter
-a | Identificador
->= | OperadorRelacional
+1 | Numero
+ 1== | OperadorRelacional
 c | Identificador
 ) | Caracter
 { | Inicio
+printf | Identificador
+( | Caracter
+"Hola" | Cadena
+) | Caracter
+; | FinSentencia
+} | Fin
+else | Condicion
+{ | Inicio
+printf | Identificador
+( | Caracter
+"Adios" | Cadena
+) | Caracter
+; | FinSentencia
 } | Fin
 } | Fin
 -----------------
@@ -98,6 +111,6 @@ V a r i a b l e s
 -----------------
 a Float = 61
 b Float = 10
-c Float = 21
+c Float = 4
 d Float = 0
 -----------------

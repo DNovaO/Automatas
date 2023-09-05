@@ -13,7 +13,10 @@ void main() // Funcion principal
     printf("\t---- Valor de x27 = \n");
     scanf("%f",&c);
     // x28=x27++;
-    if(a >= c){
+    if(1 == c){
+        printf("Hola");
+    }else {
+        printf("Adios");
     }
 }
 

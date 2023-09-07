@@ -7,17 +7,27 @@ float a,b,c,d;
 
 void main() // Funcion principal
 {
-    printf("\tHolaaaa \n");
+    // printf("\tHolaaaa");
+    // printf(" ");
+    // printf("esto funciona");
+    // printf("         ");
+    // printf("3");
     a=(3+5)*8-(10-4)/2;
-    b=10%100;
-    printf("\t---- Valor de x27 = \n");
+    printf("Valor de x27 = \n");
     scanf("%f",&c);
-    // x28=x27++;
-    if(1 == c){
-        printf("Hola");
-    }else {
-        printf("Adios");
-    }
+    b= 49;
+    b++;
+    printf("El valor de b es: %d\n", b);
+
+    d = 50;
+    d--;
+    printf("El valor de b es: %d\n", d);
+    // x28=x27++;;
+    // if(1 == c){
+    //     printf("Hola");
+    // }else {
+    //     printf("Adios");
+    // }
 }
 
 

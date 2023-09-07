@@ -40,11 +40,6 @@ main | Identificador
 ( | Caracter
 ) | Caracter
 { | Inicio
-printf | Identificador
-( | Caracter
-"\tHolaaaa \n" | Cadena
-) | Caracter
-; | FinSentencia
 a | Identificador
 a = = | Asignacion
 ( | Caracter
@@ -64,16 +59,9 @@ a = = | Asignacion
 2 | Numero
  2; | FinSentencia
  / - = 61
-b | Identificador
-b = = | Asignacion
-10 | Numero
- 10% | OperadorFactor
-100 | Numero
- 100; | FinSentencia
- % = 10
 printf | Identificador
 ( | Caracter
-"\t---- Valor de x27 = \n" | Cadena
+"Valor de x27 = \n" | Cadena
 ) | Caracter
 ; | FinSentencia
 scanf | Identificador
@@ -84,33 +72,44 @@ scanf | Identificador
 c | Identificador
 ) | Caracter
 ; | FinSentencia
-if | Condicion
-( | Caracter
-1 | Numero
- 1== | OperadorRelacional
-c | Identificador
-) | Caracter
-{ | Inicio
+b | Identificador
+b = = | Asignacion
+49 | Numero
+ 49; | FinSentencia
+ = 49
+b | Identificador
+b = ++ | IncrementoTermino
+; | FinSentencia
+ = 50
 printf | Identificador
 ( | Caracter
-"Hola" | Cadena
+"El valor de b es: %d\n" | Cadena
+, | Caracter
+b | Identificador
 ) | Caracter
 ; | FinSentencia
-} | Fin
-else | Condicion
-{ | Inicio
+d | Identificador
+d = = | Asignacion
+50 | Numero
+ 50; | FinSentencia
+ = 50
+d | Identificador
+d = -- | IncrementoTermino
+; | FinSentencia
+ = 49
 printf | Identificador
 ( | Caracter
-"Adios" | Cadena
+"El valor de b es: %d\n" | Cadena
+, | Caracter
+d | Identificador
 ) | Caracter
 ; | FinSentencia
-} | Fin
 } | Fin
 -----------------
 V a r i a b l e s
 -----------------
 a Float = 61
-b Float = 10
-c Float = 4
-d Float = 0
+b Float = 50
+c Float = 1
+d Float = 49
 -----------------

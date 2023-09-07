@@ -80,7 +80,7 @@ namespace Sintaxis_II
                 }
             }
         }
-        
+
         //get valor del scanf
         private float GetValor(string nombre)
         {
@@ -208,6 +208,7 @@ namespace Sintaxis_II
         //Asignacion -> identificador = Expresion;
         private void Asignacion(bool ejecuta)
         {
+            float resultado = 0;
             if (!Existe(getContenido()))
             {
                 throw new Error("de sintaxis, la variable <" + getContenido() + "> no está declarada", log, linea, columna);
@@ -219,16 +220,20 @@ namespace Sintaxis_II
             {
                 match("=");
                 Expresion();
+                resultado = stack.Pop();
             }
             else if (getClasificacion() == Tipos.IncrementoTermino)
             {
                 if (getContenido() == "++")
                 {
                     match("++");
+                    resultado = GetValor(variable) + 1;
+
                 }
                 else
                 {
                     match("--");
+                     resultado = GetValor(variable) - 1;
                 }
             }
             else if (getClasificacion() == Tipos.IncrementoFactor)
@@ -237,28 +242,42 @@ namespace Sintaxis_II
                 if (getContenido() == "+=")
                 {
                     match("+=");
+                    Expresion();
+                    resultado = stack.Pop();
+                    resultado += GetValor(variable);
                 }
                 else if (getContenido() == "-=")
                 {
                     match("-=");
+                    Expresion();
+                    resultado = stack.Pop();
+                    resultado -= GetValor(variable);
                 }
                 else if (getContenido() == "*=")
                 {
                     match("*=");
+                    Expresion();
+                    resultado = stack.Pop();
+                    resultado *= GetValor(variable);
                 }
                 else if (getContenido() == "/=")
                 {
                     match("/=");
+                    Expresion();
+                    resultado = stack.Pop();
+                    resultado /= GetValor(variable);
                 }
                 else if (getContenido() == "%=")
                 {
                     match("%=");
+                    Expresion();
+                    resultado = stack.Pop();
+                    resultado %= GetValor(variable);
                 }
-                Expresion();
             }
-            float resultado = stack.Pop();
             log.WriteLine(" = " + resultado);
-            if(ejecuta){
+            if (ejecuta)
+            {
                 Modifica(variable, resultado);
             }
             match(";");
@@ -344,7 +363,8 @@ namespace Sintaxis_II
             float R1 = stack.Pop();
             float R2 = stack.Pop();
 
-            switch (operador){
+            switch (operador)
+            {
                 case "==": return R2 == R1;
                 case ">": return R2 > R1;
                 case ">=": return R2 >= R1;
@@ -417,7 +437,7 @@ namespace Sintaxis_II
             {
                 Console.Write(contenido); // Imprime la cadena de formato sin comillas    
             }
-            
+
             match(Tipos.Cadena); // Realiza una coincidencia con un tipo de cadena
             if (getContenido() == ",")
             {
@@ -447,7 +467,8 @@ namespace Sintaxis_II
             }
             string variable = getContenido();
             match(Tipos.Identificador);
-            if (ejecuta) {
+            if (ejecuta)
+            {
                 float captura = float.Parse(Console.ReadLine());
                 Modifica(variable, captura);
             }

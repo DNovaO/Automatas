@@ -17,17 +17,15 @@ void main() // Funcion principal
     scanf("%f",&c);
     b= 49;
     b++;
-    printf("El valor de b es: %d\n", b);
-
+    printf("hola mundo");
     d = 50;
     d--;
-    printf("El valor de b es: %d\n", d);
     // x28=x27++;;
-    // if(1 == c){
-    //     printf("Hola");
-    // }else {
-    //     printf("Adios");
-    // }
+    if(1 == c){
+        printf("Hola");
+    }else {
+        printf("Adios, esto significa que el else funciona");
+    }
 }
 
 

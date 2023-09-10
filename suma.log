@@ -83,9 +83,7 @@ b = ++ | IncrementoTermino
  = 50
 printf | Identificador
 ( | Caracter
-"El valor de b es: %d\n" | Cadena
-, | Caracter
-b | Identificador
+"hola mundo" | Cadena
 ) | Caracter
 ; | FinSentencia
 d | Identificador
@@ -97,13 +95,27 @@ d | Identificador
 d = -- | IncrementoTermino
 ; | FinSentencia
  = 49
+if | Condicion
+( | Caracter
+1 | Numero
+ 1== | OperadorRelacional
+c | Identificador
+) | Caracter
+{ | Inicio
 printf | Identificador
 ( | Caracter
-"El valor de b es: %d\n" | Cadena
-, | Caracter
-d | Identificador
+"Hola" | Cadena
 ) | Caracter
 ; | FinSentencia
+} | Fin
+else | Condicion
+{ | Inicio
+printf | Identificador
+( | Caracter
+"Adios, esto significa que el else funciona" | Cadena
+) | Caracter
+; | FinSentencia
+} | Fin
 } | Fin
 -----------------
 V a r i a b l e s

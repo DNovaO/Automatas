@@ -4,15 +4,15 @@ using System.Linq;
 using System.Threading.Tasks;
 
 /* 
-    Requerimiento 1: Mensajes del printf deben salir sin comillas
+   ✓ Requerimiento 1: Mensajes del printf deben salir sin comillas
                      Incluir \n y \t como secuencias de escape
-    Requerimiento 2: Agregar el % al PorFactor
+   ✓ Requerimiento 2: Agregar el % al PorFactor
                      Modifcar el valor de una variable con ++,--,+=,-=,*=,/=.%=
     Requerimiento 3: Cada vez que se haga un match(Tipos.Identificador) verficar el
                      uso de la variable
                      Icremento(), Printf(), Factor()
                      Levantar una excepcion en scanf() cuando se capture un string
-    Requerimiento 4: Implementar la ejecucion del ELSE.
+   ✓ Requerimiento 4: Implementar la ejecucion del ELSE. 
 */
 
 namespace Sintaxis_II
@@ -233,7 +233,7 @@ namespace Sintaxis_II
                 else
                 {
                     match("--");
-                     resultado = GetValor(variable) - 1;
+                    resultado = GetValor(variable) - 1;
                 }
             }
             else if (getClasificacion() == Tipos.IncrementoFactor)
@@ -389,20 +389,20 @@ namespace Sintaxis_II
             {
                 Instruccion(evaluacion);
             }
+
             if (getContenido() == "else")
             {
                 match("else");
 
                 if (getContenido() == "{")
                 {
-                    BloqueInstrucciones(ejecuta);
+                    BloqueInstrucciones(!evaluacion);
                 }
                 else
                 {
-                    Instruccion(ejecuta);
+                    Instruccion(!evaluacion);
                 }
             }
-
         }
         //Printf -> printf(cadena(,Identificador)?);
         private void Printf(bool ejecuta)
@@ -435,7 +435,7 @@ namespace Sintaxis_II
             //Contiene la cadena de formato sin comillas
             if (ejecuta)
             {
-                Console.Write(contenido); // Imprime la cadena de formato sin comillas    
+                Console.WriteLine(contenido);
             }
 
             match(Tipos.Cadena); // Realiza una coincidencia con un tipo de cadena

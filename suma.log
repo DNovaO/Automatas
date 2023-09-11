@@ -104,7 +104,7 @@ c | Identificador
 { | Inicio
 printf | Identificador
 ( | Caracter
-"Hola" | Cadena
+"Hola, esto significa que el if funciona" | Cadena
 ) | Caracter
 ; | FinSentencia
 } | Fin
@@ -116,12 +116,25 @@ printf | Identificador
 ) | Caracter
 ; | FinSentencia
 } | Fin
+if | Condicion
+( | Caracter
+1 | Numero
+ 1== | OperadorRelacional
+1 | Numero
+ 1) | Caracter
+{ | Inicio
+if | Condicion
+( | Caracter
+2 | Numero
+ 2== | OperadorRelacional
+1 | Numero
+ 1) | Caracter
+{ | Inicio
+printf | Identificador
+( | Caracter
+"Hola" | Cadena
+) | Caracter
+; | FinSentencia
 } | Fin
------------------
-V a r i a b l e s
------------------
-a Float = 61
-b Float = 50
-c Float = 1
-d Float = 49
------------------
+else{ | Inicio
+Error: de sintaxis, la variable <else{> no está declarada en la linea 34 columna 14

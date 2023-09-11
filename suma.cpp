@@ -22,7 +22,7 @@ void main() // Funcion principal
     d--;
     // x28=x27++;;
     if(1 == c){
-        printf("Hola");
+        printf("Hola, esto significa que el if funciona");
     }else {
         printf("Adios, esto significa que el else funciona");
     }

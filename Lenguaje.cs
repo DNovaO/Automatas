@@ -469,8 +469,9 @@ namespace Sintaxis_II
             match(Tipos.Identificador);
             if (ejecuta)
             {
-                float captura = float.Parse(Console.ReadLine());
-                Modifica(variable, captura);
+                string captura = "" + Console.ReadLine();
+                float resultado = float.Parse(captura);
+                Modifica(variable,resultado);
             }
             match(")");
             match(";");

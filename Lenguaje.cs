@@ -469,13 +469,21 @@ namespace Sintaxis_II
             match(Tipos.Identificador);
             if (ejecuta)
             {
-                string captura = "" + Console.ReadLine();
-                float resultado = float.Parse(captura);
-                Modifica(variable,resultado);
+                //Declaramos una variable de tipo anulable
+                //La variable cadena, nos ayudara a obtener lo que el usuario introduzca
+                string? cadena = Console.ReadLine();
+                // Verificamos si se puede convertir en un número flotante.
+                if (!float.TryParse(cadena, out float resultado))
+                {
+                    throw new Exception("Se capturó una cadena en lugar de un número.");
+                }
+                //Si se puede hacer la conversion mandara a llamar Modifica
+                Modifica(variable, resultado);
             }
             match(")");
             match(";");
         }
+
         //Main -> void main() BloqueInstrucciones
         private void Main(bool ejecuta)
         {

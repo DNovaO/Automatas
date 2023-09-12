@@ -9,8 +9,7 @@ using System.Threading.Tasks;
    ✓ Requerimiento 2: Agregar el % al PorFactor
                      Modifcar el valor de una variable con ++,--,+=,-=,*=,/=.%=
     Requerimiento 3: Cada vez que se haga un match(Tipos.Identificador) verficar el
-                     uso de la variable
-                     Icremento(), Printf(), Factor()
+                     uso de la variable. Icremento(), Printf(), Factor()
                      Levantar una excepcion en scanf() cuando se capture un string
    ✓ Requerimiento 4: Implementar la ejecucion del ELSE. 
 */
@@ -344,6 +343,7 @@ namespace Sintaxis_II
                 throw new Error("de sintaxis, la variable <" + getContenido() + "> no está declarada", log, linea, columna);
             }
             match(Tipos.Identificador);
+            stack.Push(float.Parse(getContenido()));
             if (getContenido() == "++")
             {
                 match("++");
@@ -447,6 +447,7 @@ namespace Sintaxis_II
                     throw new Error("de sintaxis, la variable <" + getContenido() + "> no está declarada", log, linea, columna);
                 }
                 match(Tipos.Identificador);
+                stack.Push(float.Parse(getContenido()));
             }
 
             match(")"); // Comprueba si hay un paréntesis de cierre ")"

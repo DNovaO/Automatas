@@ -107,6 +107,19 @@ printf | Identificador
 "Hola, esto significa que el if funciona" | Cadena
 ) | Caracter
 ; | FinSentencia
+if | Condicion
+( | Caracter
+c | Identificador
+== | OperadorRelacional
+c | Identificador
+) | Caracter
+{ | Inicio
+printf | Identificador
+( | Caracter
+"Hola" | Cadena
+) | Caracter
+; | FinSentencia
+} | Fin
 } | Fin
 else | Condicion
 { | Inicio
@@ -122,6 +135,6 @@ V a r i a b l e s
 -----------------
 a Float = 61
 b Float = 50
-c Float = 25
+c Float = 2
 d Float = 49
 -----------------

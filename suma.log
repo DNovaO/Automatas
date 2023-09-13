@@ -19,13 +19,6 @@ include | Identificador
 < | OperadorRelacional
 iostream | Identificador
 > | OperadorRelacional
-# | Caracter
-include | Identificador
-< | OperadorRelacional
-conio | Identificador
-. | Caracter
-h | Identificador
-> | OperadorRelacional
 float | TipoDato
 a | Identificador
 , | Caracter
@@ -58,10 +51,13 @@ a = = | Asignacion
  -/ | OperadorFactor
 2 | Numero
  2; | FinSentencia
- / - = 61
-printf | Identificador
+ / - = = 61b | Identificador
+b = = | Asignacion
+19 | Numero
+ 19; | FinSentencia
+ = = 19printf | Identificador
 ( | Caracter
-"Valor de x27 = \n" | Cadena
+"Valor de c = " | Cadena
 ) | Caracter
 ; | FinSentencia
 scanf | Identificador
@@ -72,69 +68,118 @@ scanf | Identificador
 c | Identificador
 ) | Caracter
 ; | FinSentencia
-b | Identificador
-b = = | Asignacion
-49 | Numero
- 49; | FinSentencia
- = 49
-b | Identificador
-b = ++ | IncrementoTermino
-; | FinSentencia
- = 50
-printf | Identificador
-( | Caracter
-"hola mundo" | Cadena
-) | Caracter
-; | FinSentencia
-d | Identificador
-d = = | Asignacion
-50 | Numero
- 50; | FinSentencia
- = 50
-d | Identificador
-d = -- | IncrementoTermino
-; | FinSentencia
- = 49
 if | Condicion
 ( | Caracter
-1 | Numero
- 1== | OperadorRelacional
 c | Identificador
-) | Caracter
+% | OperadorFactor
+2 | Numero
+ 2== | OperadorRelacional
+ %0 | Numero
+ 0) | Caracter
 { | Inicio
 printf | Identificador
 ( | Caracter
-"Hola, esto significa que el if funciona" | Cadena
+"\nc es par\t\tITQ" | Cadena
 ) | Caracter
 ; | FinSentencia
 if | Condicion
 ( | Caracter
 c | Identificador
 == | OperadorRelacional
-c | Identificador
-) | Caracter
-{ | Inicio
+10 | Numero
+ 10) | Caracter
 printf | Identificador
 ( | Caracter
-"Hola" | Cadena
+"Se ejecuta el segundo If " | Cadena
+, | Caracter
+c | Identificador
 ) | Caracter
 ; | FinSentencia
-} | Fin
-} | Fin
+else | Condicion
+printf | Identificador
+( | Caracter
+"else" | Cadena
+) | Caracter
+; | FinSentencia
+a | Identificador
+a = = | Asignacion
+70 | Numero
+ 70; | FinSentencia
+ = = 70} | Fin
 else | Condicion
 { | Inicio
 printf | Identificador
 ( | Caracter
-"Adios, esto significa que el else funciona" | Cadena
+"\nc es impar\tITQ\n" | Cadena
+) | Caracter
+; | FinSentencia
+if | Condicion
+( | Caracter
+c | Identificador
+== | OperadorRelacional
+11 | Numero
+ 11) | Caracter
+printf | Identificador
+( | Caracter
+"Se ejecuta el segundo if del Else" | Cadena
 ) | Caracter
 ; | FinSentencia
 } | Fin
-} | Fin
+b | Identificador
+b = ++ | IncrementoTermino
+; | FinSentencia
+ ++ = 20c | Identificador
+c = -- | IncrementoTermino
+; | FinSentencia
+ -- = 10d | Identificador
+d = = | Asignacion
+3 | Numero
+ 3; | FinSentencia
+ = = 3c | Identificador
+c = += | IncrementoTermino
+( | Caracter
+15 | Numero
+ 15- | OperadorTermino
+b | Identificador
+) | Caracter
+ -; | FinSentencia
+ += = 5b | Identificador
+b = -= | IncrementoTermino
+9 | Numero
+ 9; | FinSentencia
+ -= = -11printf | Identificador
+( | Caracter
+"\nEl valor de a = " | Cadena
+, | Caracter
+a | Identificador
+) | Caracter
+; | FinSentencia
+printf | Identificador
+( | Caracter
+"\nEl valor de b = " | Cadena
+, | Caracter
+b | Identificador
+) | Caracter
+; | FinSentencia
+printf | Identificador
+( | Caracter
+"\nEl valor de d = " | Cadena
+, | Caracter
+d | Identificador
+) | Caracter
+; | FinSentencia
+printf | Identificador
+( | Caracter
+"\nEl valor de c = " | Cadena
+, | Caracter
+c | Identificador
+) | Caracter
+; | FinSentencia
 -----------------
 V a r i a b l e s
 -----------------
 a Float = 61
-b Float = 50
-c Float = 2
-d Float = 49
+b Float = -11
+c Float = 5
+d Float = 3
 -----------------

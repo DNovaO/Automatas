@@ -16,7 +16,7 @@ namespace Sintaxis_II {
                 nextToken();
             }
             else {
-                throw new Error("de sintaxis, se espera un <" + token_esperado + ">", log, linea, columna);
+                throw new Error("OJO 99 de sintaxis, se espera un <" + token_esperado + ">", log, linea, columna);
             }
         }
         public void match(Tipos token_esperado) {
@@ -24,7 +24,7 @@ namespace Sintaxis_II {
                 nextToken();
             }
             else {
-                throw new Error("de sintaxis, se espera un <" + token_esperado + ">", log, linea, columna);
+                throw new Error(" OJO 100 de sintaxis, se espera un <" + token_esperado + ">", log, linea, columna);
             }
         }
     }

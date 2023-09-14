@@ -8,7 +8,7 @@ using System.Threading.Tasks;
                      Incluir \n y \t como secuencias de escape
    ✓ Requerimiento 2: Agregar el % al PorFactor
                      Modifcar el valor de una variable con ++,--,+=,-=,*=,/=.%=
-    Requerimiento 3: Cada vez que se haga un match(Tipos.Identificador) verficar el
+   ✓ Requerimiento 3: Cada vez que se haga un match(Tipos.Identificador) verficar el
                      uso de la variable. Icremento(), Printf(), Factor()
                      Levantar una excepcion en scanf() cuando se capture un string
    ✓ Requerimiento 4: Implementar la ejecucion del ELSE. 
@@ -257,36 +257,36 @@ namespace Sintaxis_II
                 {
                     // Caso: '+='
                     Expresion();
-                    resultado = stack.Pop();
-                    resultado += GetValor(variable); // Sumamos el valor de la expresión a la variable.
+                    resultado = GetValor(variable);
+                    resultado +=  stack.Pop();// Sumamos el valor de la expresión a la variable.
                 }
                 else if (operador == "-=")
                 {
                     // Caso: '-='
                     Expresion();
-                    resultado = stack.Pop();
-                    resultado -= GetValor(variable); // Restamos el valor de la expresión a la variable.
+                    resultado =  GetValor(variable);
+                    resultado -= stack.Pop();// Restamos el valor de la expresión a la variable.
                 }
                 else if (operador == "*=")
                 {
                     // Caso: '*='
                     Expresion();
-                    resultado = stack.Pop();
-                    resultado *= GetValor(variable); // Multiplicamos el valor de la expresión por la variable.
+                    resultado = GetValor(variable);
+                    resultado *= stack.Pop(); // Multiplicamos el valor de la expresión por la variable.
                 }
                 else if (operador == "/=")
                 {
                     // Caso: '/='
                     Expresion();
-                    resultado = stack.Pop();
-                    resultado /= GetValor(variable); // Dividimos el valor de la variable por el de la expresión.
+                    resultado = GetValor(variable);
+                    resultado /=  stack.Pop();// Dividimos el valor de la variable por el de la expresión.
                 }
                 else if (operador == "%=")
                 {
                     // Caso: '%='
                     Expresion();
-                    resultado = stack.Pop();
-                    resultado %= GetValor(variable); // Calculamos el módulo entre la variable y la expresión.
+                    resultado = GetValor(variable);
+                    resultado %= stack.Pop(); // Calculamos el módulo entre la variable y la expresión.
                 }
 
                 // Escribimos el operador y el resultado en el registro de log.
@@ -429,7 +429,7 @@ namespace Sintaxis_II
             match("if");
             match("(");
             bool evaluacion = Condicion() && ejecuta;
-            Console.WriteLine(evaluacion);
+            Console.WriteLine("\n"+ evaluacion +"\n");
             match(")");
             bool ejecutarBloqueIf = evaluacion; // Bandera para el bloque 'if'
             if (getContenido() == "{")
@@ -498,7 +498,7 @@ namespace Sintaxis_II
                 {
                     throw new Error(" OJO 6 de sintaxis, la variable <" + variable + "> no está declarada", log, linea, columna);
                 }
-                
+
                 if (ejecuta)
                 {
                     // Imprime el valor de la variable

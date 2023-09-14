@@ -124,6 +124,12 @@ printf | Identificador
 "Se ejecuta el segundo if del Else" | Cadena
 ) | Caracter
 ; | FinSentencia
+else | Condicion
+printf | Identificador
+( | Caracter
+"Falla" | Cadena
+) | Caracter
+; | FinSentencia
 } | Fin
 b | Identificador
 b = ++ | IncrementoTermino
@@ -147,7 +153,7 @@ b | Identificador
 b = -= | IncrementoTermino
 9 | Numero
  9; | FinSentencia
- -= = -11printf | Identificador
+ -= = 11printf | Identificador
 ( | Caracter
 "\nEl valor de a = " | Cadena
 , | Caracter
@@ -179,7 +185,7 @@ c | Identificador
 V a r i a b l e s
 -----------------
 a Float = 61
-b Float = -11
+b Float = 11
 c Float = 5
 d Float = 3
 -----------------

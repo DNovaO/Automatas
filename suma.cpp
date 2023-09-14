@@ -24,6 +24,8 @@ void main() // Funcion principal
         printf("\nc es impar\tITQ\n");
         if(c==11)
             printf("Se ejecuta el segundo if del Else");
+        else
+            printf("Falla");
     }
     b++;
     c--;

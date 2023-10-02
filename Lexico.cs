@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.IO;
 
-namespace Sintaxis_2
+namespace Sintaxis_II
 {
     public class Lexico : Token, IDisposable
     {

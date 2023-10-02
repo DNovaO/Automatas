@@ -1,40 +1,23 @@
-Autor: Diego Nova Olguin
+Autor: Guillermo Fernandez Romero
 Fecha: 3-Mayo-2023 15:09
-# | Caracter
-include | Identificador
-< | OperadorRelacional
-stdio | Identificador
-. | Caracter
-h | Identificador
-> | OperadorRelacional
-# | Caracter
-include | Identificador
-< | OperadorRelacional
-math | Identificador
-. | Caracter
-h | Identificador
-> | OperadorRelacional
-# | Caracter
-include | Identificador
-< | OperadorRelacional
-iostream | Identificador
-> | OperadorRelacional
-char | TipoDato
-a | Identificador
-; | FinSentencia
-int | TipoDato
-b | Identificador
-; | FinSentencia
-float | TipoDato
-c | Identificador
-; | FinSentencia
-void | Identificador
-main | Identificador
-( | Caracter
-) | Caracter
-{ | Inicio
-a | Identificador
-a = = | Asignacion
-c | Identificador
-; | FinSentencia
- = = 0Error: de semantica, no se puede asignar un <Float> a un <Char> en la linea 11 columna 11
+i =  1 = 1
+For: i
+j =  1 = 1
+For: j
+ 2 % 0 2 % 0j =  1 = 1
+For: j
+ 2 % 0 2 % 0 2 % 0j =  1 = 1
+For: j
+ 2 % 0 2 % 0 2 % 0 2 % 0j =  1 = 1
+For: j
+ 2 % 0 2 % 0 2 % 0 2 % 0 2 % 0j =  1 = 1
+For: j
+ 2 % 0 2 % 0 2 % 0 2 % 0 2 % 0 2 % 0j =  1 = 1
+For: j
+ 2 % 0-----------------
+V a r i a b l e s
+-----------------
+altura Char = 5
+i Char = 6
+j Char = 6
+-----------------

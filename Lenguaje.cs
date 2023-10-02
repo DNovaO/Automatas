@@ -12,7 +12,7 @@ using System.Threading.Tasks;
     Requerimiento 5: CAST
 */
 
-namespace Sintaxis_2
+namespace Sintaxis_II
 {
     public class Lenguaje : Sintaxis
     {
@@ -372,7 +372,7 @@ namespace Sintaxis_2
             {
                 ejecuta = Condicion() && ejecuta;
                 match(";");
-                resultado = Incremento();
+                resultado = Incremento(ejecuta);
                 match(")");
                 if (getContenido() == "{")
                 {
@@ -399,6 +399,10 @@ namespace Sintaxis_2
         //Incremento -> Identificador ++ | --
         private float Incremento(bool ejecuta)
         {
+            string variable = getContenido();
+            float resultado = getValor(variable);
+            float incremento = 0;
+
             if (!Existe(getContenido()))
             {
                 throw new Error("de sintaxis, la variable <" + getContenido() + "> no está declarada", log, linea, columna);
@@ -407,12 +411,14 @@ namespace Sintaxis_2
             if (getContenido() == "++")
             {
                 match("++");
+                incremento = getValor(variable) + 1;
             }
             else
             {
                 match("--");
+                incremento = getValor(variable) - 1;
             }
-            return 0;
+            return incremento;
         }
         //Condicion -> Expresion OperadorRelacional Expresion
         private bool Condicion()

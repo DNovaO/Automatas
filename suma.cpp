@@ -1,39 +1,23 @@
-#include<stdio.h>
-#include<math.h>
-#include<iostream>
+#include <stdio.h>
+#include <math.h>
+#include <iostream>
 
-float a,b,c,d;
+char altura,i,j;
 
 void main() // Funcion principal
 {
-    a=(3+5)*8-(10-4)/2;
-    b=19;
-    printf("Valor de c = ");
-    scanf("%f",&c);
-    if (c%2==0)
+    printf("\nAltura: ");
+    scanf("&i",&altura);
+
+    for (i = 1; i <= altura; i++)
     {
-        printf("\nc es par\t\tITQ");
-        if (c==10)
-            printf("Se ejecuta el segundo If ",c);
-        else
-            printf("else");
-        a = 70;
+        for (j = 1; j <= i; j++)
+        {
+            if (j%2==0)
+                printf("-");
+            else
+                printf("+");
+        }
+        printf("\n");
     }
-    else
-    {
-        printf("\nc es impar\tITQ\n");
-        if(c==11)
-            printf("Se ejecuta el segundo if del Else");
-        else
-            printf("Falla");
-    }
-    b++;
-    c--;
-    d = 3;
-    c += (15 - b); //b = 9
-    b -= 9;
-    printf("\nEl valor de a = ",a);
-    printf("\nEl valor de b = ",b);
-    printf("\nEl valor de d = ",d);
-    printf("\nEl valor de c = ",c);
 }

@@ -19,14 +19,14 @@ include | Identificador
 < | OperadorRelacional
 iostream | Identificador
 > | OperadorRelacional
-float | TipoDato
+char | TipoDato
 a | Identificador
-, | Caracter
+; | FinSentencia
+int | TipoDato
 b | Identificador
-, | Caracter
+; | FinSentencia
+float | TipoDato
 c | Identificador
-, | Caracter
-d | Identificador
 ; | FinSentencia
 void | Identificador
 main | Identificador
@@ -35,157 +35,6 @@ main | Identificador
 { | Inicio
 a | Identificador
 a = = | Asignacion
-( | Caracter
-3 | Numero
- 3+ | OperadorTermino
-5 | Numero
- 5) | Caracter
- +* | OperadorFactor
-8 | Numero
- 8- | OperadorTermino
- *( | Caracter
-10 | Numero
- 10- | OperadorTermino
-4 | Numero
- 4) | Caracter
- -/ | OperadorFactor
-2 | Numero
- 2; | FinSentencia
- / - = = 61b | Identificador
-b = = | Asignacion
-19 | Numero
- 19; | FinSentencia
- = = 19printf | Identificador
-( | Caracter
-"Valor de c = " | Cadena
-) | Caracter
-; | FinSentencia
-scanf | Identificador
-( | Caracter
-"%f" | Cadena
-, | Caracter
-& | Caracter
 c | Identificador
-) | Caracter
 ; | FinSentencia
-if | Condicion
-( | Caracter
-c | Identificador
-% | OperadorFactor
-2 | Numero
- 2== | OperadorRelacional
- %0 | Numero
- 0) | Caracter
-{ | Inicio
-printf | Identificador
-( | Caracter
-"\nc es par\t\tITQ" | Cadena
-) | Caracter
-; | FinSentencia
-if | Condicion
-( | Caracter
-c | Identificador
-== | OperadorRelacional
-10 | Numero
- 10) | Caracter
-printf | Identificador
-( | Caracter
-"Se ejecuta el segundo If " | Cadena
-, | Caracter
-c | Identificador
-) | Caracter
-; | FinSentencia
-else | Condicion
-printf | Identificador
-( | Caracter
-"else" | Cadena
-) | Caracter
-; | FinSentencia
-a | Identificador
-a = = | Asignacion
-70 | Numero
- 70; | FinSentencia
- = = 70} | Fin
-else | Condicion
-{ | Inicio
-printf | Identificador
-( | Caracter
-"\nc es impar\tITQ\n" | Cadena
-) | Caracter
-; | FinSentencia
-if | Condicion
-( | Caracter
-c | Identificador
-== | OperadorRelacional
-11 | Numero
- 11) | Caracter
-printf | Identificador
-( | Caracter
-"Se ejecuta el segundo if del Else" | Cadena
-) | Caracter
-; | FinSentencia
-else | Condicion
-printf | Identificador
-( | Caracter
-"Falla" | Cadena
-) | Caracter
-; | FinSentencia
-} | Fin
-b | Identificador
-b = ++ | IncrementoTermino
-; | FinSentencia
- ++ = 20c | Identificador
-c = -- | IncrementoTermino
-; | FinSentencia
- -- = 10d | Identificador
-d = = | Asignacion
-3 | Numero
- 3; | FinSentencia
- = = 3c | Identificador
-c = += | IncrementoTermino
-( | Caracter
-15 | Numero
- 15- | OperadorTermino
-b | Identificador
-) | Caracter
- -; | FinSentencia
- += = 5b | Identificador
-b = -= | IncrementoTermino
-9 | Numero
- 9; | FinSentencia
- -= = 11printf | Identificador
-( | Caracter
-"\nEl valor de a = " | Cadena
-, | Caracter
-a | Identificador
-) | Caracter
-; | FinSentencia
-printf | Identificador
-( | Caracter
-"\nEl valor de b = " | Cadena
-, | Caracter
-b | Identificador
-) | Caracter
-; | FinSentencia
-printf | Identificador
-( | Caracter
-"\nEl valor de d = " | Cadena
-, | Caracter
-d | Identificador
-) | Caracter
-; | FinSentencia
-printf | Identificador
-( | Caracter
-"\nEl valor de c = " | Cadena
-, | Caracter
-c | Identificador
-) | Caracter
-; | FinSentencia
------------------
-V a r i a b l e s
------------------
-a Float = 61
-b Float = 11
-c Float = 5
-d Float = 3
------------------
+ = = 0Error: de semantica, no se puede asignar un <Float> a un <Char> en la linea 11 columna 11

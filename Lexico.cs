@@ -4,10 +4,13 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.IO;
 
-namespace Sintaxis_II {
-    public class Lexico : Token, IDisposable {
+namespace Sintaxis_2
+{
+    public class Lexico : Token, IDisposable
+    {
         const int F = -1;
         const int E = -2;
+
         int[,] TRAND =
         { 
           // 0   1  2  3  4  5  6  7  8  9  10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25
@@ -52,28 +55,33 @@ namespace Sintaxis_II {
           // WS  L  D  .  =  :  ;  &  |  >  <  !  +  -  *  /  %  "  ' EOF ?  # lmd {  }  \n
           // 0   1  2  3  4  5  6  7  8  9  10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25
         };
-        private StreamReader archivo;
+        protected StreamReader archivo;
         protected StreamWriter log;
 
         protected int linea;
         protected int columna;
-        public Lexico() {
-            linea = columna = 1;
+        protected int caracter;
+        public Lexico()
+        {
+            linea = columna = caracter = 1;
             log = new StreamWriter("prueba.log");
-            log.WriteLine("Autor: Diego Nova Olguin");
+            log.WriteLine("Autor: Guillermo Fernandez Romero");
             log.WriteLine("Fecha: 3-Mayo-2023 15:09");
             log.AutoFlush = true;
-            if (File.Exists("prueba.cpp")) {
+            if (File.Exists("prueba.cpp"))
+            {
                 archivo = new StreamReader("prueba.cpp");
             }
-            else {
+            else
+            {
                 throw new Error("El archivo prueba.txt no existe", log, linea, columna);
             }
         }
-        public Lexico(string nombre) {
-            linea = columna = 1;
+        public Lexico(string nombre)
+        {
+            linea = columna = caracter = 1;
             log = new StreamWriter(Path.GetFileNameWithoutExtension(nombre) + ".log");
-            log.WriteLine("Autor: Diego Nova Olguin");
+            log.WriteLine("Autor: Guillermo Fernandez Romero");
             log.WriteLine("Fecha: 3-Mayo-2023 15:09");
             log.AutoFlush = true;
             if (Path.GetExtension(nombre) != ".cpp")
@@ -90,11 +98,13 @@ namespace Sintaxis_II {
             }
         }
 
-        public void Dispose() {
+        public void Dispose()
+        {
             archivo.Close();
             log.Close();
         }
-        private int Columna(char t) {
+        private int Columna(char t)
+        {
             // WS  L  D  .  =  :  ;  &  |  >  <  !  +  -  *  /  %  "  ' EOF ?  # lmd
           // WS  L  D  .  =  :  ;  &  |  >  <  !  +  -  *  /  %  "  ' EOF ?  # lmd {  }  \n
           // 0   1  2  3  4  5  6  7  8  9  10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25
@@ -150,8 +160,10 @@ namespace Sintaxis_II {
                 return 24;
             return 22;
         }
-        private void Clasifica(int Estado) {
-            switch (Estado) {
+        private void Clasifica(int Estado)
+        {
+            switch (Estado)
+            {
                 case 1:
                     setClasificacion(Tipos.Identificador);
                     break;
@@ -212,34 +224,43 @@ namespace Sintaxis_II {
                     break;
             }
         }
-        public void nextToken() {
+        public void nextToken()
+        {
             char c;
             string buffer = "";
 
             int Estado = 0;   // Estado de inicio
 
-            while (Estado >= 0) {
+            while (Estado >= 0)
+            {
                 c = (char)archivo.Peek();
                 Estado = TRAND[Estado, Columna(c)];
                 Clasifica(Estado);
-                if (Estado >= 0) {
+                if (Estado >= 0)
+                {
                     archivo.Read();
+                    caracter++;
                     columna++;
-                    if (Estado > 0) {
+                    if (Estado > 0)
+                    {
                         buffer += c;
                     }
-                    else {
+                    else
+                    {
                         buffer = "";
                     }
-                    if (c == '\n') {
+                    if (c == '\n')
+                    {
                         linea++;
                         columna = 1;
                     }
                 }
             }
             setContenido(buffer);
-            if (getClasificacion() == Tipos.Identificador) {
-                switch (getContenido()) {
+            if (getClasificacion() == Tipos.Identificador)
+            {
+                switch (getContenido())
+                {
                     case "char":
                     case "int":
                     case "float": setClasificacion(Tipos.TipoDato); break;
@@ -259,19 +280,24 @@ namespace Sintaxis_II {
 
                 }
             }
-            if (!FinArchivo()) {
-                log.WriteLine(getContenido() + " | " + getClasificacion());
+            if (!FinArchivo())
+            {
+                // log.WriteLine(getContenido() + " | " + getClasificacion());
             }
-            if (Estado == E) {
-                if (getClasificacion() == Tipos.Numero) {
+            if (Estado == E)
+            {
+                if (getClasificacion() == Tipos.Numero)
+                {
                     throw new Error("lexico, se espera un digito", log, linea, columna);
                 }
-                else {
+                else
+                {
                     throw new Error("lexico, se espera cerrar cadena", log, linea, columna);
                 }
             }
         }
-        public bool FinArchivo() {
+        public bool FinArchivo()
+        {
             return archivo.EndOfStream;
         }
     }

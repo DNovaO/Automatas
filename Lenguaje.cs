@@ -323,19 +323,39 @@ namespace Sintaxis_II
         {
             match("while");
             match("(");
-            Condicion();
-            match(")");
-            if (getContenido() == "{")
-            {
-                BloqueInstrucciones(ejecuta);
-            }
-            else
-            {
-                Instruccion(ejecuta);
-            }
 
+            int inicia = caracter;
+            int lineaInicio = linea;
+            string variable = getContenido();
+
+            log.WriteLine("While: " + variable);
+
+            do
+            {
+                ejecuta = Condicion() && ejecuta;
+                match(")");
+                if (getContenido() == "{")
+                {
+                    BloqueInstrucciones(ejecuta);
+                }
+                else
+                {
+                    Instruccion(ejecuta);
+                }
+                if (ejecuta)
+                {
+                    archivo.DiscardBufferedData();
+                    caracter = inicia - variable.Length - 1;
+                    archivo.BaseStream.Seek(caracter, SeekOrigin.Begin);
+                    nextToken();
+                    linea = lineaInicio;
+                }
+            }
+            while (ejecuta);
         }
-        //Do -> do BloqueInstrucciones | Instruccion while(Condicion)
+
+        //Do -> do BloqueInstrucciones | Instruccion while(Condicion)// Do -> do BloqueInstrucciones while(Condicion)
+        //Do -> do BloqueInstrucciones | Instruccion while(Condicion)// Do -> do BloqueInstrucciones while(Condicion)
         private void Do(bool ejecuta)
         {
             match("do");
@@ -354,7 +374,6 @@ namespace Sintaxis_II
             match(";");
         }
         //For -> for(Asignacion Condicion; Incremento) BloqueInstrucciones | Instruccion
-
         private void For(bool ejecuta)
         {
             match("for");

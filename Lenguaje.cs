@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 /*
     Requerimiento 1: Implementar la ejecucion del while
-    Requerimiento 2: Implemenatr la ejecicion del do - whike
+    Requerimiento 2: Implemenatr la ejecucion del do - while
     Requerimiento 3: Implementar la ejecucion del for
     Requerimiento 4: Marcar errores semánticos
     Requerimiento 5: CAST
@@ -33,7 +33,7 @@ namespace Sintaxis_II
             tipoDatoExpresion = Variable.TiposDatos.Char;
         }
 
-        //Programa  -> Librerias? Variables? Main
+        //Programa  ->  Librerias? Variables? Main
         public void Programa()
         {
             if (getContenido() == "#")
@@ -345,7 +345,7 @@ namespace Sintaxis_II
                 if (ejecuta)
                 {
                     archivo.DiscardBufferedData();
-                    caracter = inicia - variable.Length - 1;
+                    caracter = inicia - variable.Length;
                     archivo.BaseStream.Seek(caracter, SeekOrigin.Begin);
                     nextToken();
                     linea = lineaInicio;
@@ -664,13 +664,30 @@ namespace Sintaxis_II
                 if (huboCast)
                 {
                     tipoDatoExpresion = tipoDatoCast;
-                    stack.Push(castea(stack.Pop(), tipoDatoCast));
+                    stack.Push(Castea(stack.Pop(), tipoDatoCast));
                 }
             }
         }
-        float castea(float resultado, Variable.TiposDatos tipoDato)
+        float Castea(float resultado, Variable.TiposDatos tipoDato)
         {
-            return 0;
+            switch (tipoDato)
+            {
+                case Variable.TiposDatos.Int:
+                    resultado = (float)Math.Max(int.MinValue, Math.Min(int.MaxValue, resultado));
+                    resultado = (int)Math.Round(resultado);
+                    break;
+
+                case Variable.TiposDatos.Char:
+                    resultado = (float)Math.Max(char.MinValue, Math.Min(char.MaxValue, resultado));
+                    resultado = (char)Math.Round(resultado);
+                    break;
+
+                case Variable.TiposDatos.Float:
+                    // No se requiere casting, ya es float
+                    break;
+            }
+            return resultado;
         }
+
     }
 }

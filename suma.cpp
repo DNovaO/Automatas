@@ -2,53 +2,57 @@
 #include <math.h>
 #include <iostream>
 
-char altura, i, j;
-char a;
-int b, e, d;
+char altura,i,j;
 
 void main() // Funcion principal
 {
-
-    b = 0;
-    while (b != 5)
-    {
-        printf("Hola mundo.\n");
-        b++;
-    }
-
-    printf("-------- Aqui entramos a la piramide ----------------\n");
-    
     printf("\nAltura: ");
     scanf("&i",&altura);
 
+    printf("\nfor:\n");
     for (i = 1; i <= altura; i++)
     {
-        for (j = 1; j <= i; j++)
+        for (j = 250; j < 250+i; j++)
         {
             if (j%2==0)
                 printf("-");
             else
                 printf("+");
         }
-        printf("\n"); 
+        printf("\n");
     }
-    printf("saliendo de la piramide\n");
-
-    printf("--------Aqui entramos al do/while ----------------\n");
-
-    e = 0;
+    printf("\nwhile:\n");
+    i = 1;
+    while (i <= altura)
+    {
+        j = 250;
+        while (j < 250+i)
+        {
+            if (j%2==0)
+                printf("-");
+            else
+                printf("+");
+            j++;
+        }
+        i++;
+        printf("\n");
+    }
+    printf("do:\n");
+    
+    i = 1;
     do
     {
-        printf("Adios Mundo.\n");
-        e++;
-    } while (e < 10);
-
-    do
-    {
-        printf("¿Deseas continuar? (Ingresa 1 para continuar, otro valor para salir)\n");
-        scanf("%d", &d);
-    } while (d == 1);
-
-    printf("Salimos de todo con exito =) ");
+        j = 250;
+        do
+        {
+            if (j%2==0)
+                printf("-");
+            else
+                printf("+");
+            j++;
+        } while (j < 250+i);
+        i++;
+        printf("\n");
+    } while (i <= altura);
 
 }

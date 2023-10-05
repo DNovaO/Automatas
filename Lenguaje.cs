@@ -233,7 +233,7 @@ namespace Sintaxis_II
         private void Asignacion(bool ejecuta)
         {
             float resultado = 0;
-            tipoDatoExpresion = Variable.TiposDatos.Char;
+            Variable.TiposDatos tipoDatoVariable = Variable.TiposDatos.Char;
             if (!Existe(getContenido()))
             {
                 throw new Error("de sintaxis, la variable <" + getContenido() + "> no está declarada", log, linea, columna);
@@ -295,25 +295,31 @@ namespace Sintaxis_II
                 }
             }
             log.WriteLine(" = " + resultado);
+
             if (ejecuta)
             {
-                Variable.TiposDatos tipoDatoVariable = getTipo(variable);
+                tipoDatoVariable = getTipo(variable);
                 Variable.TiposDatos tipoDatoResultado = getTipo(resultado);
 
-                // Console.WriteLine(variable + " = "+tipoDatoVariable);
-                // Console.WriteLine(resultado + " = "+tipoDatoResultado);
-                // Console.WriteLine("expresion = "+tipoDatoExpresion);
-
-                //Variable.TiposDatos tipoDatoMayor = 
-
-                if (tipoDatoVariable >= tipoDatoResultado)
+                // Dentro de la función Asignacion
+                if (tipoDatoVariable != tipoDatoExpresion)
                 {
-                    Modifica(variable, resultado);
+                    throw new Error("de semántica, no se puede asignar un <" + tipoDatoExpresion + "> a un <" + tipoDatoVariable + ">", log, linea, columna);
                 }
-                else
+
+                // Realiza el casting si es necesario
+                if (tipoDatoVariable != tipoDatoResultado)
                 {
-                    throw new Error("de semantica, no se puede asignar in <" + tipoDatoResultado + "> a un <" + tipoDatoVariable + ">", log, linea, columna);
+                    resultado = Castea(resultado, tipoDatoVariable);
                 }
+
+                // Verifica el rango de la variable y realiza el casting si es necesario
+                if (tipoDatoVariable == Variable.TiposDatos.Char && (resultado < char.MinValue || resultado > char.MaxValue))
+                {
+                    throw new Error("de semántica, el valor asignado a la variable <" + variable + "> está fuera del rango del tipo char", log, linea, columna);
+                }
+
+                Modifica(variable, resultado);
             }
             match(";");
         }
@@ -437,7 +443,6 @@ namespace Sintaxis_II
             }
             while (ejecuta);
         }
-
         //Incremento -> Identificador ++ | --
         private float Incremento(bool ejecuta)
         {

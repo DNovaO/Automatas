@@ -233,14 +233,17 @@ namespace Sintaxis_II
         private void Asignacion(bool ejecuta)
         {
             float resultado = 0;
-            Variable.TiposDatos tipoDatoVariable = Variable.TiposDatos.Char;
+            Variable.TiposDatos tipoDatoVariable = Variable.TiposDatos.Char; // Mover la declaración aquí
+
             if (!Existe(getContenido()))
             {
                 throw new Error("de sintaxis, la variable <" + getContenido() + "> no está declarada", log, linea, columna);
             }
+
             log.Write(getContenido() + " = ");
             string variable = getContenido();
             match(Tipos.Identificador);
+
             if (getContenido() == "=")
             {
                 match("=");
@@ -294,36 +297,36 @@ namespace Sintaxis_II
                     resultado %= stack.Pop();
                 }
             }
+
             log.WriteLine(" = " + resultado);
 
             if (ejecuta)
             {
-                tipoDatoVariable = getTipo(variable);
+                tipoDatoVariable = getTipo(variable); // Actualizar el tipoDatoVariable aquí
                 Variable.TiposDatos tipoDatoResultado = getTipo(resultado);
 
-                // Dentro de la función Asignacion
                 if (tipoDatoVariable != tipoDatoExpresion)
                 {
                     throw new Error("de semántica, no se puede asignar un <" + tipoDatoExpresion + "> a un <" + tipoDatoVariable + ">", log, linea, columna);
                 }
 
-                // Realiza el casting si es necesario
                 if (tipoDatoVariable != tipoDatoResultado)
                 {
                     resultado = Castea(resultado, tipoDatoVariable);
                 }
 
-                // Verifica el rango de la variable y realiza el casting si es necesario
-                if (tipoDatoVariable == Variable.TiposDatos.Char && (resultado < char.MinValue || resultado > char.MaxValue))
+                if (tipoDatoVariable >= tipoDatoResultado)
                 {
-                    throw new Error("de semántica, el valor asignado a la variable <" + variable + "> está fuera del rango del tipo char", log, linea, columna);
+                    Modifica(variable, resultado);
                 }
-
-                Modifica(variable, resultado);
+                else
+                {
+                    throw new Error("de semantica, no se puede asignar in <" + tipoDatoResultado + "> a un <" + tipoDatoVariable + ">", log, linea, columna);
+                }
             }
+
             match(";");
         }
-
         //While -> while(Condicion) BloqueInstrucciones | Instruccion
         private void While(bool ejecuta)
         {

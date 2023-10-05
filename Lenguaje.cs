@@ -233,7 +233,6 @@ namespace Sintaxis_II
         private void Asignacion(bool ejecuta)
         {
             float resultado = 0;
-            Variable.TiposDatos tipoDatoVariable = Variable.TiposDatos.Char; // Mover la declaración aquí
 
             if (!Existe(getContenido()))
             {
@@ -302,29 +301,24 @@ namespace Sintaxis_II
 
             if (ejecuta)
             {
-                tipoDatoVariable = getTipo(variable); // Actualizar el tipoDatoVariable aquí
+                Variable.TiposDatos tipoDatoVariable = getTipo(variable);
                 Variable.TiposDatos tipoDatoResultado = getTipo(resultado);
 
-                if (tipoDatoVariable != tipoDatoExpresion)
+                if (tipoDatoVariable >= tipoDatoResultado && tipoDatoVariable >= tipoDatoExpresion)
                 {
-                    throw new Error("de semántica, no se puede asignar un <" + tipoDatoExpresion + "> a un <" + tipoDatoVariable + ">", log, linea, columna);
+                    Modifica(variable, Castea(resultado, tipoDatoVariable));
                 }
-
-                if (tipoDatoVariable != tipoDatoResultado)
+                else if (tipoDatoVariable >= tipoDatoExpresion)
                 {
-                    resultado = Castea(resultado, tipoDatoVariable);
-                }
-
-                if (tipoDatoVariable >= tipoDatoResultado)
-                {
-                    Modifica(variable, resultado);
+                    string mensajeError = "No se puede asignar un valor de tipo " + tipoDatoResultado + " a una variable de tipo " + tipoDatoVariable;
+                    throw new Error("semántico: " + mensajeError, log, linea, columna);
                 }
                 else
                 {
-                    throw new Error("de semantica, no se puede asignar in <" + tipoDatoResultado + "> a un <" + tipoDatoVariable + ">", log, linea, columna);
+                    string mensajeError = "No se puede asignar un valor de tipo " + tipoDatoExpresion + " a una variable de tipo " + tipoDatoVariable;
+                    throw new Error("semántico: " + mensajeError, log, linea, columna);
                 }
             }
-
             match(";");
         }
         //While -> while(Condicion) BloqueInstrucciones | Instruccion
@@ -441,6 +435,27 @@ namespace Sintaxis_II
                     archivo.BaseStream.Seek(caracter, SeekOrigin.Begin);
                     nextToken();
                     linea = lineaInicio;
+
+                    if (Castea(resultado, tipoDatoExpresion) != resultado)
+                    {
+                        string mensajeError = "No se puede asignar un valor de tipo " + tipoDatoExpresion + " a una variable de tipo " + getTipo(variable);
+                        throw new Error("semántico: " + mensajeError, log, linea, columna);
+                    }
+                    else
+                    {
+                        Variable.TiposDatos tipoDatoVariable = getTipo(variable);
+                        Variable.TiposDatos tipoDatoResultado = getTipo(resultado);
+
+                        if (tipoDatoVariable >= tipoDatoResultado)
+                        {
+                            Modifica(variable, resultado);
+                        }
+                        else
+                        {
+                            string mensajeError = "No se puede asignar un valor de tipo " + tipoDatoResultado + " a una variable de tipo " + tipoDatoVariable;
+                            throw new Error("semántico: " + mensajeError, log, linea, columna);
+                        }
+                    }
 
                 }
             }

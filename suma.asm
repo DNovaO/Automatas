@@ -24,151 +24,51 @@ POP AX
 MOV k, AX
 INC i
 JMP InicioFor1
-MOV AX, i
-PUSH AX
-MOV AX, 10
-PUSH AX
-POP BX
-POP AX
-CMP AX, BX
-JAE FinFor1
-MOV AX, i
-PUSH AX
 POP AX
 ; Asignacion k
 MOV k, AX
 INC i
 JMP InicioFor1
-MOV AX, i
-PUSH AX
-MOV AX, 10
-PUSH AX
-POP BX
-POP AX
-CMP AX, BX
-JAE FinFor1
-MOV AX, i
-PUSH AX
 POP AX
 ; Asignacion k
 MOV k, AX
 INC i
 JMP InicioFor1
-MOV AX, i
-PUSH AX
-MOV AX, 10
-PUSH AX
-POP BX
-POP AX
-CMP AX, BX
-JAE FinFor1
-MOV AX, i
-PUSH AX
 POP AX
 ; Asignacion k
 MOV k, AX
 INC i
 JMP InicioFor1
-MOV AX, i
-PUSH AX
-MOV AX, 10
-PUSH AX
-POP BX
-POP AX
-CMP AX, BX
-JAE FinFor1
-MOV AX, i
-PUSH AX
 POP AX
 ; Asignacion k
 MOV k, AX
 INC i
 JMP InicioFor1
-MOV AX, i
-PUSH AX
-MOV AX, 10
-PUSH AX
-POP BX
-POP AX
-CMP AX, BX
-JAE FinFor1
-MOV AX, i
-PUSH AX
 POP AX
 ; Asignacion k
 MOV k, AX
 INC i
 JMP InicioFor1
-MOV AX, i
-PUSH AX
-MOV AX, 10
-PUSH AX
-POP BX
-POP AX
-CMP AX, BX
-JAE FinFor1
-MOV AX, i
-PUSH AX
 POP AX
 ; Asignacion k
 MOV k, AX
 INC i
 JMP InicioFor1
-MOV AX, i
-PUSH AX
-MOV AX, 10
-PUSH AX
-POP BX
-POP AX
-CMP AX, BX
-JAE FinFor1
-MOV AX, i
-PUSH AX
 POP AX
 ; Asignacion k
 MOV k, AX
 INC i
 JMP InicioFor1
-MOV AX, i
-PUSH AX
-MOV AX, 10
-PUSH AX
-POP BX
-POP AX
-CMP AX, BX
-JAE FinFor1
-MOV AX, i
-PUSH AX
 POP AX
 ; Asignacion k
 MOV k, AX
 INC i
 JMP InicioFor1
-MOV AX, i
-PUSH AX
-MOV AX, 10
-PUSH AX
-POP BX
-POP AX
-CMP AX, BX
-JAE FinFor1
-MOV AX, i
-PUSH AX
 POP AX
 ; Asignacion k
 MOV k, AX
 INC i
 JMP InicioFor1
-MOV AX, i
-PUSH AX
-MOV AX, 10
-PUSH AX
-POP BX
-POP AX
-CMP AX, BX
-JAE FinFor1
-MOV AX, i
-PUSH AX
 POP AX
 ; Asignacion k
 MOV k, AX

@@ -2,22 +2,15 @@ Autor: Guillermo Fernandez Romero
 Fecha: 3-Mayo-2023 15:09
 i =  0 = 0
 for: i
- 10k =  = 0
- 10k =  = 1
- 10k =  = 2
- 10k =  = 3
- 10k =  = 4
- 10k =  = 5
- 10k =  = 6
- 10k =  = 7
- 10k =  = 8
- 10k =  = 9
- 10k =  = 10
+ 3k =  = 0
+ 3k =  = 1
+ 3k =  = 2
+ 3k =  = 3
 -----------------
 V a r i a b l e s
 -----------------
 altura Char = 0
-i Char = 10
+i Char = 3
 j Char = 0
-k Char = 9
+k Char = 2
 -----------------

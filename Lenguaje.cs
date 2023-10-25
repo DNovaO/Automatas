@@ -219,15 +219,15 @@ namespace Sintaxis_II
         {
             if (getContenido() == "printf")
             {
-                Printf(ejecuta);
+                Printf(ejecuta, primeraVez);
             }
             else if (getContenido() == "scanf")
             {
-                Scanf(ejecuta);
+                Scanf(ejecuta, primeraVez);
             }
             else if (getContenido() == "if")
             {
-                If(ejecuta);
+                If(ejecuta, primeraVez);
             }
             else if (getContenido() == "while")
             {
@@ -263,9 +263,12 @@ namespace Sintaxis_II
                 match("=");
                 Expresion(primeraVez);
                 resultado = stack.Pop();
-                asm.WriteLine("POP AX");
-                asm.WriteLine("; Asignacion " + variable);
-                asm.WriteLine("MOV " + variable + ", AX");
+                if (primeraVez)
+                {
+                    asm.WriteLine("POP AX");
+                    asm.WriteLine("; Asignacion " + variable);
+                    asm.WriteLine("MOV " + variable + ", AX");
+                }
             }
             else if (getClasificacion() == Tipos.IncrementoTermino)
             {
@@ -274,14 +277,14 @@ namespace Sintaxis_II
                     match("++");
                     // INC
                     resultado = getValor(variable) + 1;
-                    asm.WriteLine("INC " + variable);
+                    if (primeraVez) asm.WriteLine("INC " + variable);
                 }
                 else
                 {
                     match("--");
                     // DEC
                     resultado = getValor(variable) - 1;
-                    asm.WriteLine("DEC " + variable);
+                    if (primeraVez) asm.WriteLine("DEC " + variable);
                 }
             }
             else if (getClasificacion() == Tipos.IncrementoFactor)
@@ -292,40 +295,56 @@ namespace Sintaxis_II
                     match("+=");
                     Expresion(primeraVez);
                     resultado += stack.Pop();
-                    asm.WriteLine("POP AX");
-                    asm.WriteLine("ADD" + variable + ", AX");
+                    if (primeraVez)
+                    {
+                        asm.WriteLine("POP AX");
+                        asm.WriteLine("ADD" + variable + ", AX");
+                    }
                 }
                 else if (getContenido() == "-=")
                 {
                     match("-=");
                     Expresion(primeraVez);
                     resultado -= stack.Pop();
-                    asm.WriteLine("POP AX");
-                    asm.WriteLine("SUB" + variable + ", AX");
+                    if (primeraVez)
+                    {
+                        asm.WriteLine("POP AX");
+                        asm.WriteLine("SUB" + variable + ", AX");
+                    }
                 }
                 else if (getContenido() == "*=")
                 {
                     match("*=");
                     Expresion(primeraVez);
                     resultado *= stack.Pop();
-                    asm.WriteLine("POP AX");
-                    asm.WriteLine("MUL" + variable + ", AX");
+                    if (primeraVez)
+                    {
+                        asm.WriteLine("POP AX");
+                        asm.WriteLine("MUL" + variable + ", AX");
+                    }
                 }
                 else if (getContenido() == "/=")
                 {
                     match("/=");
                     Expresion(primeraVez);
                     resultado /= stack.Pop();
-                    asm.WriteLine("POP AX");
-                    asm.WriteLine("DIV" + variable + ", AX");
+                    if (primeraVez)
+                    {
+                        asm.WriteLine("POP AX");
+                        asm.WriteLine("DIV" + variable + ", AX");
+                    }
                 }
                 else if (getContenido() == "%=")
                 {
                     match("%=");
                     Expresion(primeraVez);
                     resultado %= stack.Pop();
-                    asm.WriteLine("POP AX");
-                    asm.WriteLine("MOD" + variable + ", AX");
+                    if (primeraVez)
+                    {
+                        asm.WriteLine("POP AX");
+                        asm.WriteLine("MOD" + variable + ", AX");
+                        primeraVez = false;
+                    }
                 }
             }
             log.WriteLine(" = " + resultado);
@@ -422,12 +441,12 @@ namespace Sintaxis_II
             match(";");
         }
         //For -> for(Asignacion Condicion; Incremento) BloqueInstrucciones | Instruccion
-        private void For(bool ejecuta, bool primera)
+        private void For(bool ejecuta, bool primeraVez)
         {
             asm.WriteLine("; For: " + contFor);
             match("for");
             match("(");
-            Asignacion(ejecuta, primera);
+            Asignacion(ejecuta, primeraVez);
 
             string etiquetaInicio = "InicioFor" + contFor;
             string etiquetaFin = "FinFor" + contFor++;
@@ -436,19 +455,24 @@ namespace Sintaxis_II
             int lineaInicio = linea;
             float resultado = 0;
             string variable = getContenido();
-            bool primeraVez = true;
 
             log.WriteLine("for: " + variable);
-            if (primera)
+            if (primeraVez)
             {
                 asm.WriteLine(etiquetaInicio + ":");
             }
+            bool incrementar = false;
+            bool decrementar = false;
             do
             {
                 ejecuta = Condicion(etiquetaFin, primeraVez) && ejecuta;
                 match(";");
                 resultado = Incremento(ejecuta);
                 match(")");
+
+                incrementar = getValor(variable) < resultado;
+                decrementar = getValor(variable) > resultado;
+
                 if (getContenido() == "{")
                 {
                     BloqueInstrucciones(ejecuta, primeraVez);
@@ -457,16 +481,14 @@ namespace Sintaxis_II
                 {
                     Instruccion(ejecuta, primeraVez);
                 }
-                if (getValor(variable) < resultado)
+
+                if (primeraVez)
                 {
-                    if (primera)
+                    if (incrementar)
                     {
                         asm.WriteLine("INC " + variable);
                     }
-                }
-                else if (getValor(variable) > resultado)
-                {
-                    if (primera)
+                    else if (decrementar)
                     {
                         asm.WriteLine("DEC " + variable);
                     }
@@ -481,23 +503,27 @@ namespace Sintaxis_II
                     }
                     else
                     {
-                        throw new Error("de semantica, no se puede asignar in <" + tipoDatoResultado + "> a un <" + tipoDatoVariable + ">", log, linea, columna);
+                        throw new Error("de semántica, no se puede asignar in <" + tipoDatoResultado + "> a un <" + tipoDatoVariable + ">", log, linea, columna);
                     }
                     archivo.DiscardBufferedData();
                     caracter = inicia - variable.Length - 1;
                     archivo.BaseStream.Seek(caracter, SeekOrigin.Begin);
                     nextToken();
                     linea = lineaInicio;
-
                 }
-                if (primera)
+
+                if (primeraVez)
                 {
                     asm.WriteLine("JMP " + etiquetaInicio);
                 }
                 primeraVez = false;
             }
             while (ejecuta);
-            asm.WriteLine(etiquetaFin + ":");
+
+            if (primeraVez)
+            {
+                asm.WriteLine(etiquetaFin + ":");
+            }
         }
 
         //Incremento -> Identificador ++ | --
@@ -554,16 +580,20 @@ namespace Sintaxis_II
                     if (primeraVez) asm.WriteLine("JA " + etiqueta);
                     return R2 <= R1;
                 default:
-                    if (primeraVez) asm.WriteLine("JE " + etiqueta);
+                    if (primeraVez)
+                    {
+                        asm.WriteLine("JE " + etiqueta);
+                        primeraVez = false;
+                    }
                     return R2 != R1;
             }
         }
         //If -> if (Condicion) BloqueInstrucciones | Instruccion (else BloqueInstrucciones | Instruccion)?
-        private void If(bool ejecuta)
+        private void If(bool ejecuta, bool primeraVez)
         {
             match("if");
             match("(");
-            asm.WriteLine("; if: " + contIf);
+            if (primeraVez) asm.WriteLine("; if: " + contIf);
             string etiqueta = "Eif" + contIf++;
             bool evaluacion = Condicion(etiqueta, true);
             match(")");
@@ -575,7 +605,7 @@ namespace Sintaxis_II
             {
                 Instruccion(evaluacion && ejecuta, true);
             }
-            asm.WriteLine(etiqueta + ":");
+            if (primeraVez) asm.WriteLine(etiqueta + ":");
             if (getContenido() == "else")
             {
                 match("else");
@@ -590,7 +620,7 @@ namespace Sintaxis_II
             }
         }
         //Printf -> printf(cadena(,Identificador)?);
-        private void Printf(bool ejecuta)
+        private void Printf(bool ejecuta, bool primeraVez)
         {
             match("printf");
             match("(");
@@ -619,7 +649,7 @@ namespace Sintaxis_II
             match(";");
         }
         //Scanf -> scanf(cadena,&Identificador);
-        private void Scanf(bool ejecuta)
+        private void Scanf(bool ejecuta, bool primeraVez)
         {
             match("scanf");
             match("(");

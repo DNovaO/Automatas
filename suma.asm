@@ -11,7 +11,7 @@ MOV i, AX
 InicioFor1:
 MOV AX, i
 PUSH AX
-MOV AX, 10
+MOV AX, 3
 PUSH AX
 POP BX
 POP AX
@@ -24,57 +24,6 @@ POP AX
 MOV k, AX
 INC i
 JMP InicioFor1
-POP AX
-; Asignacion k
-MOV k, AX
-INC i
-JMP InicioFor1
-POP AX
-; Asignacion k
-MOV k, AX
-INC i
-JMP InicioFor1
-POP AX
-; Asignacion k
-MOV k, AX
-INC i
-JMP InicioFor1
-POP AX
-; Asignacion k
-MOV k, AX
-INC i
-JMP InicioFor1
-POP AX
-; Asignacion k
-MOV k, AX
-INC i
-JMP InicioFor1
-POP AX
-; Asignacion k
-MOV k, AX
-INC i
-JMP InicioFor1
-POP AX
-; Asignacion k
-MOV k, AX
-INC i
-JMP InicioFor1
-POP AX
-; Asignacion k
-MOV k, AX
-INC i
-JMP InicioFor1
-POP AX
-; Asignacion k
-MOV k, AX
-INC i
-JMP InicioFor1
-POP AX
-; Asignacion k
-MOV k, AX
-INC i
-JMP InicioFor1
-FinFor1:
 int 20h
 RET
 define_scan_num

@@ -6,6 +6,7 @@ char altura,i,j,k;
 
 void main() // Funcion principal
 {
+
     for (i=0; i<10; i++)
     {
         printf("\nHola");

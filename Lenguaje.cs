@@ -520,10 +520,7 @@ namespace Sintaxis_II
             }
             while (ejecuta);
 
-            if (primeraVez)
-            {
-                asm.WriteLine(etiquetaFin + ":");
-            }
+            asm.WriteLine(etiquetaFin + ":");
         }
 
         //Incremento -> Identificador ++ | --
@@ -629,8 +626,24 @@ namespace Sintaxis_II
                 string cadena = getContenido().TrimStart('"');
                 cadena = cadena.Remove(cadena.Length - 1);
                 cadena = cadena.Replace(@"\n", "\n");
+                string cadenaEns = getContenido().TrimStart('"');
+                cadenaEns = cadenaEns.Remove(cadenaEns.Length - 1);
+
                 Console.Write(cadena);
+
+                if (primeraVez)
+                {
+                    if(cadena.Contains("\n")){
+                        cadenaEns = cadenaEns.Replace(@"\n", "");
+                        asm.WriteLine("printn " + "'" + cadenaEns + "'");
+                    }
+                    else{
+                        cadenaEns = cadenaEns.Replace(@"\n", "");
+                        asm.WriteLine("print " + "'" + cadenaEns + "'");
+                    }
+                }   
             }
+            
             match(Tipos.Cadena);
             if (getContenido() == ",")
             {
@@ -642,12 +655,19 @@ namespace Sintaxis_II
                 if (ejecuta)
                 {
                     Console.Write(getValor(getContenido()));
+                    if (primeraVez)
+                    {
+                        asm.WriteLine("CALL PRINT_NUM");
+                    }
                 }
                 match(Tipos.Identificador);
+                primeraVez = false;
             }
             match(")");
             match(";");
         }
+
+
         //Scanf -> scanf(cadena,&Identificador);
         private void Scanf(bool ejecuta, bool primeraVez)
         {
@@ -667,6 +687,14 @@ namespace Sintaxis_II
                 string captura = "" + Console.ReadLine();
                 float resultado = float.Parse(captura);
                 Modifica(variable, resultado);
+
+                if (primeraVez)
+                {
+                    asm.WriteLine("CALL SCAN_NUM ");
+                    asm.WriteLine("MOV AX, CX");
+                    
+                }
+
             }
             match(")");
             match(";");

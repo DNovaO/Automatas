@@ -1,11 +1,19 @@
 Autor: Guillermo Fernandez Romero
 Fecha: 3-Mayo-2023 15:09
+
+ While:i
+ 5i =  = 1
+ 5i =  = 2
+ 5i =  = 3
+ 5i =  = 4
+ 5i =  = 5
+ 5i =  = 6
 -----------------
 V a r i a b l e s
 -----------------
 altura Char = 0
-i Char = 0
+i Char = 5
 j Char = 0
 k Char = 0
-a Char = 9
+a Char = 0
 -----------------

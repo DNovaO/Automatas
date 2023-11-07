@@ -6,10 +6,16 @@ char altura, i, j, k, a;
 
 void main() // Funcion principal
 {
-    printf("\nHola, di un numero.");
-    scanf("&i", &a);
-    printf("\nEl numero que pusiste es: " , a);
 
+    while (i < 5)
+    {
+        printf("\nHola");
+        i++;
+    }
+
+    // printf("\nHola, di un numero.");
+    // scanf("&i", &a);
+    // printf("\nEl numero que pusiste es: " , a);    
     // for (i = 0; i < 10; i++)
     // {
     //     printf("\nHola");

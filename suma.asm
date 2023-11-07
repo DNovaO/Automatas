@@ -2,11 +2,20 @@
 ; Fecha: 3-Mayo-2023
 include 'emu8086.inc'
 org 100h
-printn 'Hola, di un numero.'
-CALL SCAN_NUM 
-MOV AX, CX
-printn 'El numero que pusiste es: '
-CALL PRINT_NUM
+;While: 0
+InicioWhile0:
+MOV AX, i
+PUSH AX
+MOV AX, 5
+PUSH AX
+POP BX
+POP AX
+CMP AX, BX
+JAE FinWhile0
+printn 'Hola'
+INC i
+JMP InicioWhile0
+FinWhile0:
 int 20h
 RET
 define_scan_num

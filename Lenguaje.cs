@@ -6,14 +6,14 @@ using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 
 /*
-    Requerimiento 1: Programar scanf 
-    Requerimiento 2: Programar printf
+    ✔ Requerimiento 1: Programar scanf 
+    ✔ Requerimiento 2: Programar printf
     Requerimiento 3: Programar ++,--,+=,-=,*=,/=,%=
     Requerimiento 4: Programar else
-    Requerimiento 5: Programar do para que gerenre una sola vez el codigo
-    Requerimiento 6: Programar while para que gerenre una sola vez el codigo
-    Requerimiento 7: Programar el for para que gerenre una sola vez el codigo
-    Requerimiento 8: Programar el CAST
+    ✔ Requerimiento 5: Programar do para que gerenre una sola vez el codigo
+    ✔ Requerimiento 6: Programar while para que gerenre una sola vez el codigo
+    ✔ Requerimiento 7: Programar el for para que gerenre una sola vez el codigo
+    ✔ Requerimiento 8: Programar el CAST
 */
 
 namespace Sintaxis_II
@@ -22,7 +22,7 @@ namespace Sintaxis_II
     {
         List<Variable> lista;
         Stack<float> stack;
-        int contIf, contFor, contWh;
+        int contIf, contFor, contWh, contDo;
 
         Variable.TiposDatos tipoDatoExpresion;
         public Lenguaje()
@@ -30,14 +30,14 @@ namespace Sintaxis_II
             lista = new List<Variable>();
             stack = new Stack<float>();
             tipoDatoExpresion = Variable.TiposDatos.Char;
-            contIf = contFor = 1;
+            contIf = contFor = contWh = contDo = 1;
         }
         public Lenguaje(string nombre) : base(nombre)
         {
             lista = new List<Variable>();
             stack = new Stack<float>();
             tipoDatoExpresion = Variable.TiposDatos.Char;
-            contIf = contFor = 1;
+            contIf = contFor = contWh = contDo = 1;
         }
 
         //Programa  -> Librerias? Variables? Main
@@ -249,135 +249,189 @@ namespace Sintaxis_II
         //Asignacion -> identificador = Expresion;
         private void Asignacion(bool ejecuta, bool primeraVez)
         {
+            // Inicializamos una variable para almacenar el resultado de la asignación.
             float resultado = 0;
             tipoDatoExpresion = Variable.TiposDatos.Char;
+
+            // Verificamos si la variable existe en el contexto actual.
             if (!Existe(getContenido()))
             {
-                throw new Error("de sintaxis, la variable <" + getContenido() + "> no está declarada", log, linea, columna);
+                throw new Error("OJO 2 de sintaxis, la variable <" + getContenido() + "> no está declarada", log, linea, columna);
             }
+
+            // Escribimos el nombre de la variable en el registro de log.
             log.Write(getContenido() + " = ");
             string variable = getContenido();
             match(Tipos.Identificador);
-            if (getContenido() == "=")
-            {
-                match("=");
-                Expresion(primeraVez);
-                resultado = stack.Pop();
-                if (primeraVez)
-                {
-                    asm.WriteLine("POP AX");
-                    asm.WriteLine("; Asignacion " + variable);
-                    asm.WriteLine("MOV " + variable + ", AX");
-                }
-            }
-            else if (getClasificacion() == Tipos.IncrementoTermino)
-            {
-                if (getContenido() == "++")
-                {
-                    match("++");
-                    // INC
-                    resultado = getValor(variable) + 1;
-                    if (primeraVez) asm.WriteLine("INC " + variable);
-                }
-                else
-                {
-                    match("--");
-                    // DEC
-                    resultado = getValor(variable) - 1;
-                    if (primeraVez) asm.WriteLine("DEC " + variable);
-                }
-            }
-            else if (getClasificacion() == Tipos.IncrementoFactor)
-            {
-                resultado = getValor(variable);
-                if (getContenido() == "+=")
-                {
-                    match("+=");
-                    Expresion(primeraVez);
-                    resultado += stack.Pop();
-                    if (primeraVez)
-                    {
-                        asm.WriteLine("POP AX");
-                        asm.WriteLine("ADD" + variable + ", AX");
-                    }
-                }
-                else if (getContenido() == "-=")
-                {
-                    match("-=");
-                    Expresion(primeraVez);
-                    resultado -= stack.Pop();
-                    if (primeraVez)
-                    {
-                        asm.WriteLine("POP AX");
-                        asm.WriteLine("SUB" + variable + ", AX");
-                    }
-                }
-                else if (getContenido() == "*=")
-                {
-                    match("*=");
-                    Expresion(primeraVez);
-                    resultado *= stack.Pop();
-                    if (primeraVez)
-                    {
-                        asm.WriteLine("POP AX");
-                        asm.WriteLine("MUL" + variable + ", AX");
-                    }
-                }
-                else if (getContenido() == "/=")
-                {
-                    match("/=");
-                    Expresion(primeraVez);
-                    resultado /= stack.Pop();
-                    if (primeraVez)
-                    {
-                        asm.WriteLine("POP AX");
-                        asm.WriteLine("DIV" + variable + ", AX");
-                    }
-                }
-                else if (getContenido() == "%=")
-                {
-                    match("%=");
-                    Expresion(primeraVez);
-                    resultado %= stack.Pop();
-                    if (primeraVez)
-                    {
-                        asm.WriteLine("POP AX");
-                        asm.WriteLine("MOD" + variable + ", AX");
-                        primeraVez = false;
-                    }
-                }
-            }
-            log.WriteLine(" = " + resultado);
-            if (ejecuta)
-            {
-                Variable.TiposDatos tipoDatoVariable = getTipo(variable);
-                Variable.TiposDatos tipoDatoResultado = getTipo(resultado);
 
-                // Console.WriteLine(variable + " = "+tipoDatoVariable);
-                // Console.WriteLine(resultado + " = "+tipoDatoResultado);
-                // Console.WriteLine("expresion = "+tipoDatoExpresion);
+            // Entramos en un bucle para procesar operaciones de asignación como '=', '++', '--', etc.
+            while (getContenido() == "=" || getContenido() == "++" || getContenido() == "--" ||
+                   getContenido() == "+=" || getContenido() == "-=" || getContenido() == "*=" ||
+                   getContenido() == "/=" || getContenido() == "%=")
+            {
+                // Obtenemos el operador actual.
+                string operador = getContenido();
 
-                if (tipoDatoExpresion > tipoDatoResultado)
+                // Realizamos una coincidencia con el operador actual.
+                match(operador);
+
+                // Realizamos la asignación o la operación correspondiente según el operador.
+                if (operador == "=")
                 {
-                    tipoDatoResultado = tipoDatoExpresion;
+                    // Caso: '='
+                    Expresion(primeraVez);
+                    resultado = stack.Pop(); // Obtenemos el valor de la expresión y lo asignamos.
+
+                    if (primeraVez)
+                    {
+                        asm.WriteLine();
+                        asm.WriteLine(";Operador = ");
+                        asm.WriteLine("POP AX");
+                        asm.WriteLine("MOV " + variable + ", AX");
+                    }
                 }
-                if (tipoDatoVariable >= tipoDatoResultado)
+                else if (operador == "++")
                 {
-                    Modifica(variable, resultado);
+                    // Caso: '++'
+                    resultado = getValor(variable) + 1; // Incrementamos el valor de la variable.
+                    if (primeraVez)
+                    {
+                        asm.WriteLine();
+                        asm.WriteLine(";Operador ++");
+                        asm.WriteLine("INC " + variable);
+                    }
                 }
-                else
+                else if (operador == "--")
                 {
-                    throw new Error("de semantica, no se puede asignar in <" + tipoDatoResultado + "> a un <" + tipoDatoVariable + ">", log, linea, columna);
+                    // Caso: '--'
+                    resultado = getValor(variable) - 1; // Decrementamos el valor de la variable.
+
+                    if (primeraVez)
+                    {
+                        asm.WriteLine();
+                        asm.WriteLine(";Operador -- ");
+                        asm.WriteLine("DEC " + variable);
+                    }
+                }
+                else if (operador == "+=")
+                {
+                    // Caso: '+='
+                    Expresion(primeraVez);
+                    resultado = stack.Pop();
+                    resultado += getValor(variable); // Sumamos el valor de la expresión a la variable.
+                    if (primeraVez)
+                    {
+                        asm.WriteLine();
+                        asm.WriteLine(";Operador += ");
+                        asm.WriteLine("POP AX");
+                        asm.WriteLine("ADD " + variable + ", AX");
+                    }
+                }
+                else if (operador == "-=")
+                {
+                    // Caso: '-='
+                    Expresion(primeraVez);
+                    resultado = stack.Pop();
+                    resultado -= getValor(variable); // Restamos el valor de la expresión a la variable.
+                    if (primeraVez)
+                    {
+                        asm.WriteLine();
+                        asm.WriteLine(";Operador -= ");
+                        asm.WriteLine("POP AX");
+                        asm.WriteLine("SUB " + variable + ", AX");
+                    }
+                }
+                else if (operador == "*=")
+                {
+                    // Caso: '*='
+                    Expresion(primeraVez);
+                    resultado = stack.Pop();
+                    resultado *= getValor(variable); // Multiplicamos el valor de la expresión por la variable.
+                    if (primeraVez)
+                    {
+                        asm.WriteLine();
+                        asm.WriteLine(";Operador *= ");
+                        asm.WriteLine("POP AX");
+                        asm.WriteLine("MUL " + variable);
+                        asm.WriteLine("MOV " + variable + ", AX");
+                    }
+                }
+                else if (operador == "/=")
+                {
+                    // Caso: '/='
+                    Expresion(primeraVez);
+                    resultado = stack.Pop();
+                    resultado /= getValor(variable); // Dividimos el valor de la expresión entre la variable.
+                    if (primeraVez)
+                    {
+                        asm.WriteLine();
+                        asm.WriteLine(";Operador /=");
+                        asm.WriteLine("POP AX");
+                        asm.WriteLine("MOV BX, " + variable);
+                        asm.WriteLine("MOV DX, 0");
+                        asm.WriteLine("DIV BX");
+                        asm.WriteLine("MOV " + variable + ",AX");
+
+                    }
+                }
+                else if (operador == "%=")
+                {
+                    // Caso: '%='
+                    Expresion(primeraVez);
+                    resultado = stack.Pop();
+                    resultado %= getValor(variable); // Calculamos el módulo entre la variable y la expresión.
+                    if (primeraVez)
+                    {
+                        asm.WriteLine();
+                        asm.WriteLine(";Operador %= ");
+                        asm.WriteLine("POP BX");
+                        asm.WriteLine("MOV AX, " + variable);
+                        asm.WriteLine("DIV BX");
+                        asm.WriteLine("MOV " + variable + ",DX");
+                    }
+                }
+
+                if (ejecuta)
+                {
+
+                    Variable.TiposDatos tipoDatoVariable = getTipo(variable);
+                    Variable.TiposDatos tipoDatoResultado = getTipo(resultado);
+
+                    // Console.WriteLine(variable + " = "+tipoDatoVariable);
+                    // Console.WriteLine(resultado + " = "+tipoDatoResultado);
+                    // Console.WriteLine("expresion = "+tipoDatoExpresion);
+
+                    if (tipoDatoExpresion > tipoDatoResultado)
+                    {
+                        tipoDatoResultado = tipoDatoExpresion;
+                    }
+                    if (tipoDatoVariable >= tipoDatoResultado)
+                    {
+                        Modifica(variable, resultado);
+                    }
+                    else
+                    {
+                        throw new Error("de semantica, no se puede asignar in <" + tipoDatoResultado + "> a un <" + tipoDatoVariable + ">", log, linea, columna);
+                    }
+                }
+                primeraVez = false;
+                log.Write(" = " + resultado);
+                // Si encontramos un punto y coma, salimos del bucle.
+                if (getContenido() == ";")
+                {
+                    break;
                 }
             }
+
+            // Realizamos una coincidencia con el punto y coma al final de la asignación.
             match(";");
         }
 
         //While -> while(Condicion) BloqueInstrucciones | Instruccion        
         private void While(bool ejecuta, bool primeraVez)
         {
-
-            asm.WriteLine(";While: " + contWh);
+            if (primeraVez) asm.WriteLine();
+            if (primeraVez) asm.WriteLine(";While: " + contWh);
             match("while");
             match("(");
 
@@ -407,7 +461,7 @@ namespace Sintaxis_II
                 if (ejecuta)
                 {
                     archivo.DiscardBufferedData();
-                    caracter = inicia - variable.Length - 1;
+                    caracter = inicia - variable.Length;
                     archivo.BaseStream.Seek(caracter, SeekOrigin.Begin);
                     nextToken();
                     linea = lineaInicio;
@@ -425,8 +479,6 @@ namespace Sintaxis_II
         //Do -> do BloqueInstrucciones | Instruccion while(Condicion)
         private void Do(bool ejecuta, bool primeraVez)
         {
-            int contDo = 0;
-
             log.WriteLine("Do While: ");
             if (primeraVez) asm.WriteLine();
             if (primeraVez) asm.WriteLine("; Do While:" + contDo);
@@ -482,7 +534,8 @@ namespace Sintaxis_II
         //For -> for(Asignacion Condicion; Incremento) BloqueInstrucciones | Instruccion
         private void For(bool ejecuta, bool primeraVez)
         {
-            asm.WriteLine("; For: " + contFor);
+            if (primeraVez) asm.WriteLine();
+            if (primeraVez) asm.WriteLine("; For: " + contFor);
             match("for");
             match("(");
             Asignacion(ejecuta, primeraVez);
@@ -496,10 +549,7 @@ namespace Sintaxis_II
             string variable = getContenido();
 
             log.WriteLine("for: " + variable);
-            if (primeraVez)
-            {
-                asm.WriteLine(etiquetaInicio + ":");
-            }
+            if (primeraVez) asm.WriteLine(etiquetaInicio + ":");
             bool incrementar = false;
             bool decrementar = false;
             do
@@ -583,7 +633,7 @@ namespace Sintaxis_II
             }
         }
         //Condicion -> Expresion OperadorRelacional Expresion
-        private bool Condicion(string etiqueta, bool primeraVez)
+        private bool Condicion(string etiqueta, bool primeraVez, bool ejecuta = true)
         {
             Expresion(primeraVez);
             string operador = getContenido();
@@ -592,11 +642,14 @@ namespace Sintaxis_II
             float R1 = stack.Pop();  // Expresion 2
             float R2 = stack.Pop();  // Expresion 1
 
-            if (primeraVez)
+            if (ejecuta)
             {
-                asm.WriteLine("POP BX"); // Expresion 2
-                asm.WriteLine("POP AX"); // Expresion 1
-                asm.WriteLine("CMP AX, BX");
+                if (primeraVez)
+                {
+                    asm.WriteLine("POP BX"); // Expresion 2
+                    asm.WriteLine("POP AX"); // Expresion 1
+                    asm.WriteLine("CMP AX, BX");
+                }
             }
             switch (operador)
             {
@@ -604,23 +657,21 @@ namespace Sintaxis_II
                     if (primeraVez) asm.WriteLine("JNE " + etiqueta);
                     return R2 == R1;
                 case ">":
-                    if (primeraVez) asm.WriteLine("JBE " + etiqueta);
+                    if (primeraVez) asm.WriteLine("JLE " + etiqueta);
                     return R2 > R1;
                 case ">=":
-                    if (primeraVez) asm.WriteLine("JB " + etiqueta);
+                    if (primeraVez) asm.WriteLine("JL " + etiqueta);
                     return R2 >= R1;
                 case "<":
-                    if (primeraVez) asm.WriteLine("JAE " + etiqueta);
+                    if (primeraVez) asm.WriteLine("JGE " + etiqueta);
                     return R2 < R1;
                 case "<=":
-                    if (primeraVez) asm.WriteLine("JA " + etiqueta);
+                    if (primeraVez) asm.WriteLine("JG " + etiqueta);
                     return R2 <= R1;
                 default:
-                    if (primeraVez)
-                    {
-                        asm.WriteLine("JE " + etiqueta);
-                        primeraVez = false;
-                    }
+                    if (primeraVez) asm.WriteLine("JE " + etiqueta);
+
+                    primeraVez = false;
                     return R2 != R1;
             }
         }
@@ -633,6 +684,7 @@ namespace Sintaxis_II
             string etiqueta = "Eif" + contIf++;
             bool evaluacion = Condicion(etiqueta, true);
             match(")");
+
             if (getContenido() == "{")
             {
                 BloqueInstrucciones(evaluacion && ejecuta, true);
@@ -641,10 +693,13 @@ namespace Sintaxis_II
             {
                 Instruccion(evaluacion && ejecuta, true);
             }
+
             if (primeraVez) asm.WriteLine(etiqueta + ":");
+
             if (getContenido() == "else")
             {
                 match("else");
+
                 if (getContenido() == "{")
                 {
                     BloqueInstrucciones(!evaluacion && ejecuta, true);
@@ -654,22 +709,40 @@ namespace Sintaxis_II
                     Instruccion(!evaluacion && ejecuta, true);
                 }
             }
-        }
+        }   
         //Printf -> printf(cadena(,Identificador)?);
         private void Printf(bool ejecuta, bool primeraVez)
         {
+            if (primeraVez) asm.WriteLine("; Printf: ");
             match("printf");
             match("(");
+
+            string cadena = getContenido().TrimStart('"');
+            cadena = cadena.Remove(cadena.Length - 1);
+            cadena = cadena.Replace(@"\n", "\n").Replace(@"\t", "\t");
+            string cadenaEns = getContenido().TrimStart('"');
+            cadenaEns = cadenaEns.Remove(cadenaEns.Length - 1);
+
             if (ejecuta)
             {
-                string cadena = getContenido().TrimStart('"');
-                cadena = cadena.Remove(cadena.Length - 1);
-                cadena = cadena.Replace(@"\n", "\n");
-                string cadenaEns = getContenido().TrimStart('"');
-                cadenaEns = cadenaEns.Remove(cadenaEns.Length - 1);
-
                 Console.Write(cadena);
 
+                if (primeraVez)
+                {
+                    if (cadena.Contains("\n"))
+                    {
+                        cadenaEns = cadenaEns.Replace(@"\n", "");
+                        asm.WriteLine("printn " + "'" + cadenaEns + "'");
+                    }
+                    else
+                    {
+                        cadenaEns = cadenaEns.Replace(@"\n", "");
+                        asm.WriteLine("print " + "'" + cadenaEns + "'");
+                    }
+                }
+            }
+            else
+            {
                 if (primeraVez)
                 {
                     if (cadena.Contains("\n"))
@@ -696,10 +769,7 @@ namespace Sintaxis_II
                 if (ejecuta)
                 {
                     Console.Write(getValor(getContenido()));
-                    if (primeraVez)
-                    {
-                        asm.WriteLine("CALL PRINT_NUM");
-                    }
+                    if (primeraVez) asm.WriteLine("CALL PRINT_NUM");
                 }
                 match(Tipos.Identificador);
                 primeraVez = false;
@@ -707,8 +777,7 @@ namespace Sintaxis_II
             match(")");
             match(";");
         }
-
-
+        
         //Scanf -> scanf(cadena,&Identificador);
         private void Scanf(bool ejecuta, bool primeraVez)
         {
@@ -900,7 +969,7 @@ namespace Sintaxis_II
                 if (huboCast)
                 {
                     tipoDatoExpresion = tipoDatoCast;
-                    stack.Push(castea(stack.Pop(), tipoDatoCast));
+                    stack.Push(castea(stack.Pop(), tipoDatoCast, primeraVez));
                     if (primeraVez)
                     {
                         asm.WriteLine("POP AX");
@@ -908,12 +977,29 @@ namespace Sintaxis_II
                 }
             }
         }
-        float castea(float resultado, Variable.TiposDatos tipoDato)
+        float castea(float resultado, Variable.TiposDatos tipoDato, bool primeraVez)
         {
             switch (tipoDato)
             {
-                case Variable.TiposDatos.Char: return MathF.Round(resultado) % 256;
-                case Variable.TiposDatos.Int: return MathF.Round(resultado) % 65536;
+                case Variable.TiposDatos.Char:
+                    if (primeraVez)
+                    {
+                        asm.WriteLine("POP AX");
+                        asm.WriteLine("MOV BX, 256");
+                        asm.WriteLine("DIV BX");
+                        asm.WriteLine("PUSH DX");
+                    }
+                    return MathF.Round(resultado) % 256;
+
+                case Variable.TiposDatos.Int:
+                    if (primeraVez)
+                    {
+                        asm.WriteLine("POP AX");
+                        asm.WriteLine("MOV BX, 65536");
+                        asm.WriteLine("DIV BX");
+                        asm.WriteLine("PUSH DX");
+                    }
+                    return MathF.Round(resultado) % 65536;
             }
             return resultado;
         }

@@ -40,19 +40,19 @@ MOV BX, a
 MOV DX, 0
 DIV BX
 MOV a,AX
-PRINT 'Valor Casteado de a: '
+PRINT 'Valor Casteado de a: "'
 MOV AX, a
 CALL PRINT_NUM
 PRINT ''
 PRINTN '' 
-PRINT 'Digite el valor de altura: '
+PRINT 'Digite el valor de altura: "'
 CALL SCAN_NUM 
 MOV altura, CX
 PRINT ''
 PRINTN '' 
 PRINT 'for:'
 PRINTN '' 
-PRINT ''
+PRINT '"'
 
 ; For: 1
 MOV AX, 1
@@ -73,7 +73,7 @@ POP AX
 CMP AX, BX
 JG FinFor1
 PRINT '' 
-PRINT ' '
+PRINT ' "'
 
 ; For: 2
 MOV AX, 250
@@ -118,18 +118,18 @@ POP BX
 POP AX
 CMP AX, BX
 JNE EtiquetaIf1
-PRINT '-'
+PRINT '-"'
 JMP EtiquetaElse2
 EtiquetaIf1:
 ;Else
-PRINT '+'
+PRINT '+"'
 EtiquetaElse2:
 INC j
 JMP InicioFor2
 FinFor2:
 PRINT ''
 PRINTN '' 
-PRINT ''
+PRINT '"'
 INC i
 JMP InicioFor1
 FinFor1:
@@ -137,7 +137,7 @@ PRINT ''
 PRINTN '' 
 PRINT 'while:'
 PRINTN '' 
-PRINT ''
+PRINT '"'
 MOV AX, 1
 PUSH AX
 
@@ -158,7 +158,7 @@ POP AX
 CMP AX, BX
 JG FinWhile1
 PRINT '' 
-PRINT ' '
+PRINT ' "'
 MOV AX, 250
 PUSH AX
 
@@ -203,11 +203,11 @@ POP BX
 POP AX
 CMP AX, BX
 JNE EtiquetaIf11
-PRINT '-'
+PRINT '-"'
 JMP EtiquetaElse12
 EtiquetaIf11:
 ;Else
-PRINT '+'
+PRINT '+"'
 EtiquetaElse12:
 
 ;Operador ++
@@ -219,14 +219,14 @@ FinWhile2:
 INC i
 PRINT ''
 PRINTN '' 
-PRINT ''
+PRINT '"'
 JMP InicioWhile1
 FinWhile1:
 PRINT ''
 PRINTN '' 
 PRINT 'do:'
 PRINTN '' 
-PRINT ''
+PRINT '"'
 MOV AX, 1
 PUSH AX
 
@@ -237,7 +237,7 @@ MOV i, AX
 ; Do While:1
 InicioDo1:
 PRINT '' 
-PRINT ' '
+PRINT ' "'
 MOV AX, 250
 PUSH AX
 
@@ -264,13 +264,13 @@ PUSH AX
 ;Condicion
 POP BX
 POP AX
-CMP AX, BX-6
+CMP AX, BX
 JNE EtiquetaIf21
-PRINT '-'
+PRINT '-"'
 JMP EtiquetaElse22
 EtiquetaIf21:
 ;Else
-PRINT '+'
+PRINT '+"'
 EtiquetaElse22:
 
 ;Operador ++
@@ -299,7 +299,7 @@ FinDo2:
 INC i
 PRINT ''
 PRINTN '' 
-PRINT ''
+PRINT '"'
 MOV AX, i
 PUSH AX
 MOV AX, altura

@@ -727,69 +727,63 @@ namespace Sintaxis_II
         {
             match("printf");
             match("(");
+
+            string cadena = getContenido().TrimStart('"');
+            string cadenaEnsamblador = cadena;
+
+            cadena = cadena.Remove(cadena.Length - 1);
+            cadena = cadena.Replace(@"\n", "\n");
+            cadena = cadena.Replace(@"\t", "\t");
+
+            cadenaEnsamblador = cadenaEnsamblador.Replace(@"\n", "'\nPRINTN '' \nPRINT '");
+            cadenaEnsamblador = cadenaEnsamblador.Replace(@"\t", "' \nPRINT ' ");
+
             if (ejecuta)
             {
-                string cadena = getContenido().TrimStart('"');
-                string cadenaEnsamblador = "";
-                cadena = cadena.Remove(cadena.Length - 1);
-                cadenaEnsamblador = cadena;
-
-                cadena = cadena.Replace(@"\n", "\n");
-                cadena = cadena.Replace(@"\t", "\t");
-
-                cadenaEnsamblador = cadenaEnsamblador.Replace(@"\n", "'\nPRINTN '' \nPRINT '");
-                cadenaEnsamblador = cadenaEnsamblador.Replace(@"\t", "' \nPRINT ' ");
-
                 Console.Write(cadena);
                 if (primeraVez) asm.WriteLine("PRINT '" + cadenaEnsamblador + "'");
             }
-            if (!ejecuta)
+            else if (primeraVez)
             {
-
-                string cadena = getContenido().TrimStart('"');
-                string cadenaEnsamblador = "";
-
-                cadena = cadena.Remove(cadena.Length - 1);
-                cadenaEnsamblador = cadena;
-
-                cadenaEnsamblador = cadenaEnsamblador.Replace(@"\n", "'\nPRINTN '' \nPRINT '");
-                cadenaEnsamblador = cadenaEnsamblador.Replace(@"\t", "' \nPRINT ' ");
-
-                if (primeraVez) asm.WriteLine("PRINT '" + cadenaEnsamblador + "'");
+                asm.WriteLine("PRINT '" + cadenaEnsamblador + "'");
             }
 
             match(Tipos.Cadena);
+
             if (getContenido() == ",")
             {
                 match(",");
-                if (!Existe(getContenido()))
+                string variable = getContenido();
+
+                if (!Existe(variable))
                 {
-                    throw new Error("de sintaxis, la variable <" + getContenido() + "> no está declarada", log, linea, columna);
+                    throw new Error("de sintaxis, la variable <" + variable + "> no está declarada", log, linea, columna);
                 }
+
                 if (ejecuta)
                 {
-                    Console.Write(getValor(getContenido()));
+                    string valor = getContenido();
+                    Console.Write(valor);
+
                     if (primeraVez)
                     {
-                        string variable = getContenido();
                         asm.WriteLine("MOV AX, " + variable);
                         asm.WriteLine("CALL PRINT_NUM");
                     }
                 }
-                if (!ejecuta)
+                else if (primeraVez)
                 {
-                    if (primeraVez)
-                    {
-                        string variable = getContenido();
-                        asm.WriteLine("MOV AX, " + variable);
-                        asm.WriteLine("CALL PRINT_NUM");
-                    }
+                    asm.WriteLine("MOV AX, " + variable);
+                    asm.WriteLine("CALL PRINT_NUM");
                 }
+
                 match(Tipos.Identificador);
             }
+
             match(")");
             match(";");
         }
+
 
         //Scanf -> scanf(cadena,&Identificador);
         private void Scanf(bool ejecuta, bool primeraVez)
@@ -822,7 +816,7 @@ namespace Sintaxis_II
                 }
 
             }
-            
+
             match(")");
             match(";");
         }

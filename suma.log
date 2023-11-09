@@ -1,11 +1,25 @@
 Autor: Guillermo Fernandez Romero
 Fecha: 3-Mayo-2023 15:09
-a =  258 = 258a =  = 2a =  8 = 10a =  10 = 100a =  100 = 1 1-----------------
+a =  258 = 258a =  = 2a =  8 = 10a =  10 = 100a =  100 = 1i =  1 = 1for: i
+j =  250 = 250for: j
+ 250 + 2 % 0 250 + 2 % 0j =  250 = 250for: j
+ 250 + 2 % 0 250 + 2 % 0 250 + 2 % 0j =  250 = 250for: j
+ 250 + 2 % 0 250 + 2 % 0 250 + 2 % 0 250 + 2 % 0j =  250 = 250for: j
+ 250 + 2 % 0i =  1 = 1While:while
+j =  250 = 250While:while
+ 250 + 2 % 0j =  = 251 250 + 2 % 0j =  = 252i =  = 2j =  250 = 250While:while
+ 250 + 2 % 0j =  = 251 250 + 2 % 0j =  = 252 250 + 2 % 0j =  = 253i =  = 3j =  250 = 250While:while
+ 250 + 2 % 0j =  = 251 250 + 2 % 0j =  = 252 250 + 2 % 0j =  = 253 250 + 2 % 0j =  = 254i =  = 4j =  250 = 250While:while
+ 250 + 2 % 0j =  = 254i =  = 5i =  1 = 1Do While: 
+j =  250 = 250Do While: 
+ 2 % 0j =  = 251 250 +i =  = 2j =  250 = 250Do While: 
+ 2 % 0j =  = 251 250 + 2 % 0j =  = 252 250 +i =  = 3j =  250 = 250Do While: 
+ 2 % 0j =  = 251 250 + 2 % 0j =  = 252 250 + 2 % 0j =  = 253 250 +i =  = 4-----------------
 V a r i a b l e s
 -----------------
-altura Float = 0
-i Float = 0
-j Float = 0
+altura Float = 3
+i Float = 4
+j Float = 253
 k Float = 0
 a Int = 1
 b Int = 0

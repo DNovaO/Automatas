@@ -730,34 +730,32 @@ namespace Sintaxis_II
             if (ejecuta)
             {
                 string cadena = getContenido().TrimStart('"');
-                string cadenaasm;
+                string cadenaEnsamblador = "";
                 cadena = cadena.Remove(cadena.Length - 1);
-                cadenaasm = cadena;
+                cadenaEnsamblador = cadena;
+
                 cadena = cadena.Replace(@"\n", "\n");
                 cadena = cadena.Replace(@"\t", "\t");
-                cadenaasm = cadenaasm.Replace(@"\n", "'\nprintn '' \nprint '");
-                cadenaasm = cadenaasm.Replace(@"\t", "' \nprint ' ");
+
+                cadenaEnsamblador = cadenaEnsamblador.Replace(@"\n", "'\nPRINTN '' \nPRINT '");
+                cadenaEnsamblador = cadenaEnsamblador.Replace(@"\t", "' \nPRINT ' ");
+
                 Console.Write(cadena);
-                if (primeraVez)
-                {
-                    asm.WriteLine("print '" + cadenaasm + "'");
-                }
+                if (primeraVez) asm.WriteLine("PRINT '" + cadenaEnsamblador + "'");
             }
-            if (ejecuta == false)
+            if (!ejecuta)
             {
 
                 string cadena = getContenido().TrimStart('"');
-                string cadenaasm;
+                string cadenaEnsamblador = "";
+
                 cadena = cadena.Remove(cadena.Length - 1);
-                cadenaasm = cadena;
+                cadenaEnsamblador = cadena;
 
-                cadenaasm = cadenaasm.Replace(@"\n", "'\nprintn '' \nprint '");
-                cadenaasm = cadenaasm.Replace(@"\t", "' \nprint ' ");
-                if (primeraVez)
-                {
+                cadenaEnsamblador = cadenaEnsamblador.Replace(@"\n", "'\nPRINTN '' \nPRINT '");
+                cadenaEnsamblador = cadenaEnsamblador.Replace(@"\t", "' \nPRINT ' ");
 
-                    asm.WriteLine("print '" + cadenaasm + "'");
-                }
+                if (primeraVez) asm.WriteLine("PRINT '" + cadenaEnsamblador + "'");
             }
 
             match(Tipos.Cadena);
@@ -775,16 +773,16 @@ namespace Sintaxis_II
                     {
                         string variable = getContenido();
                         asm.WriteLine("MOV AX, " + variable);
-                        asm.WriteLine("CALL print_num");
+                        asm.WriteLine("CALL PRINT_NUM");
                     }
                 }
-                if (ejecuta == false)
+                if (!ejecuta)
                 {
                     if (primeraVez)
                     {
                         string variable = getContenido();
                         asm.WriteLine("MOV AX, " + variable);
-                        asm.WriteLine("CALL print_num");
+                        asm.WriteLine("CALL PRINT_NUM");
                     }
                 }
                 match(Tipos.Identificador);
@@ -824,15 +822,7 @@ namespace Sintaxis_II
                 }
 
             }
-
-            // if (ejecuta == false)
-            // {
-            //     if (primeraVez)
-            //     {
-            //         asm.WriteLine("CALL SCAN_NUM ");
-            //         asm.WriteLine("MOV " + variable + ", CX");
-            //     }
-            // }
+            
             match(")");
             match(";");
         }

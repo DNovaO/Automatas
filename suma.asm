@@ -40,19 +40,19 @@ MOV BX, a
 MOV DX, 0
 DIV BX
 MOV a,AX
-print 'Valor Casteado de a: '
+PRINT 'Valor Casteado de a: '
 MOV AX, a
-CALL print_num
-print ''
-printn '' 
-print 'Digite el valor de altura: '
+CALL PRINT_NUM
+PRINT ''
+PRINTN '' 
+PRINT 'Digite el valor de altura: '
 CALL SCAN_NUM 
 MOV altura, CX
-print ''
-printn '' 
-print 'for:'
-printn '' 
-print ''
+PRINT ''
+PRINTN '' 
+PRINT 'for:'
+PRINTN '' 
+PRINT ''
 
 ; For: 1
 MOV AX, 1
@@ -72,8 +72,8 @@ POP BX
 POP AX
 CMP AX, BX
 JG FinFor1
-print '' 
-print ' '
+PRINT '' 
+PRINT ' '
 
 ; For: 2
 MOV AX, 250
@@ -118,26 +118,26 @@ POP BX
 POP AX
 CMP AX, BX
 JNE EtiquetaIf1
-print '-'
+PRINT '-'
 JMP EtiquetaElse2
 EtiquetaIf1:
 ;Else
-print '+'
+PRINT '+'
 EtiquetaElse2:
 INC j
 JMP InicioFor2
 FinFor2:
-print ''
-printn '' 
-print ''
+PRINT ''
+PRINTN '' 
+PRINT ''
 INC i
 JMP InicioFor1
 FinFor1:
-print ''
-printn '' 
-print 'while:'
-printn '' 
-print ''
+PRINT ''
+PRINTN '' 
+PRINT 'while:'
+PRINTN '' 
+PRINT ''
 MOV AX, 1
 PUSH AX
 
@@ -157,8 +157,8 @@ POP BX
 POP AX
 CMP AX, BX
 JG FinWhile1
-print '' 
-print ' '
+PRINT '' 
+PRINT ' '
 MOV AX, 250
 PUSH AX
 
@@ -203,11 +203,11 @@ POP BX
 POP AX
 CMP AX, BX
 JNE EtiquetaIf11
-print '-'
+PRINT '-'
 JMP EtiquetaElse12
 EtiquetaIf11:
 ;Else
-print '+'
+PRINT '+'
 EtiquetaElse12:
 
 ;Operador ++
@@ -217,16 +217,16 @@ FinWhile2:
 
 ;Operador ++
 INC i
-print ''
-printn '' 
-print ''
+PRINT ''
+PRINTN '' 
+PRINT ''
 JMP InicioWhile1
 FinWhile1:
-print ''
-printn '' 
-print 'do:'
-printn '' 
-print ''
+PRINT ''
+PRINTN '' 
+PRINT 'do:'
+PRINTN '' 
+PRINT ''
 MOV AX, 1
 PUSH AX
 
@@ -236,8 +236,8 @@ MOV i, AX
 
 ; Do While:1
 InicioDo1:
-print '' 
-print ' '
+PRINT '' 
+PRINT ' '
 MOV AX, 250
 PUSH AX
 
@@ -264,13 +264,13 @@ PUSH AX
 ;Condicion
 POP BX
 POP AX
-CMP AX, BX
+CMP AX, BX-6
 JNE EtiquetaIf21
-print '-'
+PRINT '-'
 JMP EtiquetaElse22
 EtiquetaIf21:
 ;Else
-print '+'
+PRINT '+'
 EtiquetaElse22:
 
 ;Operador ++
@@ -297,9 +297,9 @@ FinDo2:
 
 ;Operador ++
 INC i
-print ''
-printn '' 
-print ''
+PRINT ''
+PRINTN '' 
+PRINT ''
 MOV AX, i
 PUSH AX
 MOV AX, altura
